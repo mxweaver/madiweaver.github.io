@@ -49,7 +49,8 @@ const styles = {
   information: {
     textAlign: 'center',
     fontSize: '18pt',
-    marginBottom: '10px'
+    marginBottom: '10px',
+    fontWeight: 'lighter'
   }
 }
 
