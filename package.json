@@ -14,11 +14,15 @@
   "author": "Maya Vera <github@mayavera.me>",
   "license": "NO_LICENSE",
   "dependencies": {
+    "css-loader": "^0.28.4",
+    "node-sass": "^4.5.3",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-interactive": "^0.6.5",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
