@@ -65,7 +65,12 @@ export default function Home() {
         <div style={styles.titleTrailer}>vera</div>
       </div>
       <div style={styles.information}>Software Engineer in NYC</div>
-      <div style={styles.information}><a>dev@mayavera.me</a></div>
+      <div style={styles.information}>
+        <a href="mailto:dev@mayavera.me">dev@mayavera.me</a>
+      </div>
+      <div style={styles.information}>
+        <a href="https://github.com/mayavera" target="_blank">dev@mayavera.me</a>
+      </div>
     </div>
   )
 }
