@@ -7,6 +7,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'column',
     height: '100vh'
   },
   title: {
@@ -19,7 +20,8 @@ const styles = {
     letterSpacing: '.75em',
     justifyContent: 'space-between',
     padding: '.5em 1em',
-    borderRadius: '3px'
+    borderRadius: '3px',
+    marginBottom: '50px'
   },
   titleHeader: {
     display: 'block',
@@ -43,6 +45,11 @@ const styles = {
     top: 0,
     bottom: 0,
     margin: 'auto'
+  },
+  information: {
+    textAlign: 'center',
+    fontSize: '18pt',
+    marginBottom: '10px'
   }
 }
 
@@ -56,6 +63,8 @@ export default function Home() {
         </div>
         <div style={styles.titleTrailer}>vera</div>
       </div>
+      <div style={styles.information}>Software Engineer in NYC</div>
+      <div style={styles.information}><a>dev@mayavera.me</a></div>
     </div>
   )
 }
