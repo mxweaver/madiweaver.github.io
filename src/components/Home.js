@@ -1,6 +1,7 @@
 import React from 'react'
 import { background, primaryText } from '../colors'
 import Icon from './Icon'
+import githubImage from '../images/github.png'
 
 const styles = {
   container: {
@@ -49,8 +50,11 @@ const styles = {
   information: {
     textAlign: 'center',
     fontSize: '18pt',
-    marginBottom: '10px',
+    marginBottom: '30px',
     fontWeight: 'lighter'
+  },
+  line: {
+    marginBottom: '10px'
   }
 }
 
@@ -64,12 +68,16 @@ export default function Home() {
         </div>
         <div style={styles.titleTrailer}>vera</div>
       </div>
-      <div style={styles.information}>Software Engineer in NYC</div>
       <div style={styles.information}>
-        <a href="mailto:dev@mayavera.me">dev@mayavera.me</a>
+        <div style={styles.line}>Software Engineer in NYC</div>
+        <div style={styles.line}>
+          <a href="mailto:dev@mayavera.me">dev@mayavera.me</a>
+          </div>
       </div>
-      <div style={styles.information}>
-        <a href="https://github.com/mayavera" target="_blank">dev@mayavera.me</a>
+      <div style={styles.links}>
+        <a href="https://github.com/mayavera" target="_blank">
+          <img src={githubImage} height="35px" width="35px"/>
+        </a>
       </div>
     </div>
   )
