@@ -1,5 +1,7 @@
 import React from 'react'
+import { Link, Route, Switch } from 'react-router-dom'
 import Home from './Home'
+import Sierpinski from './Sierpinski'
 import { background, primaryText } from '../colors'
 
 const styles  = {
@@ -13,6 +15,9 @@ const styles  = {
 
 export default function App() {
   return <div style={styles.app}>
-    <Home/>
+    <Switch>
+      <Route exact path='/' component={Home}/>
+      <Route path='sierpinski' component={Sierpinski}/>
+    </Switch>
   </div>
 }
