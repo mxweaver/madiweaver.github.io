@@ -55,8 +55,8 @@ export default {
         }
       },
       {
-        test: /\.wasm$/,
-        loaders: ['wasm-loader']
+        test: /\.(png|svg)$/,
+        use: 'url-loader'
       }
     ]
   }
