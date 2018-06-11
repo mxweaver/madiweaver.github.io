@@ -1,44 +1,35 @@
 {
-  "name": "mayavera",
-  "version": "0.0.1",
-  "private": true,
-  "description": "Maya Vera's personal webpage",
+  "name": "mayavera.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
   "scripts": {
-    "watch": "webpack-dev-server --devtool eval-source-map --history-api-fallback --open --watch",
-    "start": "webpack-dev-server --devtool eval-source-map --history-api-fallback --open",
-    "build": "webpack -p"
+    "clean": "rm -rf public && rm -f index.html",
+    "build": "webpack-cli --progress",
+    "dev": "npm run build -- --watch",
+    "build-fresh": "npm run clean && npm run build",
+    "lint": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mayavera/mayavera.git"
-  },
-  "author": "Maya Vera <github@mayavera.me>",
-  "license": "NO_LICENSE",
-  "dependencies": {
-    "css-loader": "^0.28.4",
-    "file-loader": "^0.11.2",
-    "node-sass": "^4.9.0",
-    "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-interactive": "^0.6.5",
-    "react-router-dom": "^4.1.1",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^7.0.0",
+    "autoprefixer": "^8.5.2",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "css-loader": "^0.28.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^7.0.1",
+    "url-loader": "^1.0.1",
+    "wasm-loader": "^1.3.0",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^2.1.4"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.0"
   }
 }

@@ -1,1 +1,1 @@
-# maya-vera
+# mayavera.github.io
