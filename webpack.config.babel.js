@@ -2,13 +2,10 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
-const environment = process.env.NODE_ENV || 'development'
-const obfuscate = process.env.NODE_ENV === 'production'
-
 export default {
-  mode: environment === 'development' ? 'development' : 'production',
+  mode: 'production',
   entry: path.join(__dirname, 'app', 'main.js'),
-  devtool: environment === 'production' ? false : 'cheap-module-eval-source-map',
+  devtool: false,
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].[chunkhash].js'
@@ -17,7 +14,7 @@ export default {
     new HtmlWebpackPlugin({
       title: 'Maya Vera',
       template: path.join(__dirname, 'app', 'index.html'),
-      filename: '../index.html'
+      filename: path.join(__dirname, 'index.html')
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contentHash].css'
