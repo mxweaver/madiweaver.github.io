@@ -1,4 +1,6 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
@@ -55,6 +57,15 @@ export default {
         test: /\.(png|svg)$/,
         use: 'url-loader'
       }
+    ]
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true
+      }),
+      new OptimizeCssAssetsPlugin({})
     ]
   }
 }
