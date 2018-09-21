@@ -56,6 +56,14 @@ export default {
       {
         test: /\.(png|svg)$/,
         use: 'url-loader'
+      },
+      {
+        test: /\.md$/,
+        use: [
+          {
+            loader: "html-loader"
+          }
+        ]
       }
     ]
   },
