@@ -1,17 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Crimson+Text');
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Orbitron');
 @import '~normalize-scss/sass/normalize/import-now';
 
+$text-color: white;
+
 body {
-  font-family: 'Crimson Text', serif;
+  font-family: 'Chakra Petch', sans-serif;
+  // font-family: 'Orbitron', sans-serif;
   height: 100vh;
   width: 100%;
+	background-color: black;
+	color: $text-color;
 
   * {
     transition: all .3s;
   }
 
   a {
-    color: black;
+    color: $text-color;
 
     &:not(:hover) {
       text-decoration: none;
@@ -21,8 +26,7 @@ body {
   .title {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     height: 100vh;
 
     h1, h2, h3 {
@@ -33,24 +37,12 @@ body {
     }
 
     h1 {
-      font-size: 10vw;
+      font-size: 22px;
     }
-
-    h2, h3 {
-      font-size: 7vw;
-    }
-  }
-
-  .resume {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    font-size: 2.5vw;
-    font-weight: 700;
-    padding: 15px;
   }
 
   .links {
+		display: none;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -68,37 +60,6 @@ body {
 
       &:hover {
         width: 9vw;
-      }
-    }
-  }
-
-  .booking {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 15px;
-    font-size: 2.5vw;
-    font-weight: 700;
-  }
-
-  @media screen and (min-width: 680px) {
-    .title {
-      h1 {
-        font-size: (680px * .10);
-      }
-
-      h2, h3 {
-        font-size: (680px * .07);
-      }
-    }
-    
-    .links {
-      img {
-        width: (680px * .07);
-        
-        &:hover {
-          width: (680px * .09);
-        }
       }
     }
   }
