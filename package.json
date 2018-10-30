@@ -28,6 +28,7 @@
     "babel-loader": "^8.0.4",
     "css-loader": "^0.28.11",
     "eslint": "^5.8.0",
+    "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-react": "^7.11.1",
     "html-loader": "^0.5.5",
     "html-webpack-harddisk-plugin": "^1.0.1",
@@ -46,6 +47,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "connected-react-router": "^4.5.0",
+    "history": "^4.7.2",
     "normalize-scss": "^7.0.1",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
