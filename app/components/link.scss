@@ -1,0 +1,11 @@
+@import '../colors';
+
+.link {
+  color: $text-color;
+	text-decoration: none;
+	transition: color .3s;
+
+	&:active, &:hover {
+		color: $text-color-active;
+	}
+}
