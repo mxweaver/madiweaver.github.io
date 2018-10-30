@@ -25,12 +25,14 @@ export default class Intro extends React.Component {
     renderer.setSize(display.clientWidth, display.clientHeight)
     display.appendChild(renderer.domElement)
 
-    window.onresize = () => {
+    this.onWindowResize = () => {
       renderer.setSize(display.clientWidth, display.clientHeight)
 
       camera.aspect = display.clientWidth / display.clientHeight
       camera.updateProjectionMatrix()
     }
+
+    window.addEventListener('resize', this.onWindowResize)
 
     function animate () {
       requestAnimationFrame(animate)
@@ -41,6 +43,11 @@ export default class Intro extends React.Component {
       renderer.render(scene, camera)
     }
     animate()
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowResize)
+    this.onWindowResize = undefined
   }
 
   render() {
