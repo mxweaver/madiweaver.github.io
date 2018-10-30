@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rm -rf public && rm -f index.html",
     "build": "webpack-cli --progress",
-    "dev": "npm run build -- --watch",
+    "dev": "webpack-dev-server",
     "build-fresh": "npm run clean && npm run build",
     "lint": "eslint ."
   },
