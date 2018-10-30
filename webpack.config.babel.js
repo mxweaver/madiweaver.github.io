@@ -4,6 +4,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
 import path from 'path'
+import webpack from 'webpack'
 
 export default {
   mode: 'development',
@@ -23,7 +24,10 @@ export default {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contentHash].css'
-    })
+    }),
+    new webpack.ProvidePlugin({
+      THREE: 'three',
+    }),
   ],
   module: {
     rules: [

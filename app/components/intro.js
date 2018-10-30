@@ -1,5 +1,15 @@
 import React from 'react'
-import { PerspectiveCamera, Scene, WebGLRenderer, Mesh, BoxGeometry, MeshBasicMaterial } from 'three'
+import {
+  PerspectiveCamera,
+  Scene,
+  WebGLRenderer,
+  Mesh,
+  BoxGeometry,
+  MeshPhongMaterial,
+  DirectionalLight
+} from 'three'
+import 'three/examples/js/controls/OrbitControls'
+const OrbitControls = THREE.OrbitControls
 import c from './intro.scss'
 
 export default class Intro extends React.Component {
@@ -11,10 +21,12 @@ export default class Intro extends React.Component {
   componentDidMount() {
     const scene = new Scene()
 
-    const cube = new Mesh(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({
-      color: 0x00ff00
-    }))
+    const material = new MeshPhongMaterial( { color: 0xffffff, emissive: 0x444444 } )
+
+    const cube = new Mesh(new BoxGeometry(1, 1, 1), material)
     scene.add(cube);
+
+    scene.add(new DirectionalLight(0xffffff, 0.5))
 
     const display = this.display.current
 
@@ -22,8 +34,11 @@ export default class Intro extends React.Component {
     camera.position.z = 5;
 
     const renderer = new WebGLRenderer()
+    renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setSize(display.clientWidth, display.clientHeight)
     display.appendChild(renderer.domElement)
+
+    new OrbitControls(camera, renderer.domElement)
 
     this.onWindowResize = () => {
       renderer.setSize(display.clientWidth, display.clientHeight)
@@ -38,7 +53,7 @@ export default class Intro extends React.Component {
       requestAnimationFrame(animate)
 
       cube.rotation.y += 0.01
-      cube.rotation.x += 0.01
+      cube.rotation.x += 0.005
 
       renderer.render(scene, camera)
     }
