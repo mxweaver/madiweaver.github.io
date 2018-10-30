@@ -24,6 +24,13 @@ export default class Intro extends React.Component {
 
     camera.position.z = 5;
 
+    window.onresize = () => {
+      renderer.setSize(display.clientWidth, display.clientHeight)
+      
+      camera.aspect = display.clientWidth / display.clientHeight
+      camera.updateProjectionMatrix()
+    }
+
     function animate () {
       requestAnimationFrame(animate)
 
