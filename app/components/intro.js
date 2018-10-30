@@ -9,24 +9,25 @@ export default class Intro extends React.Component {
   }
 
   componentDidMount() {
-    const display = this.display.current
-
     const scene = new Scene()
-    const camera = new PerspectiveCamera(75, display.clientWidth / display.clientHeight, 0.1, 1000)
-    const renderer = new WebGLRenderer()
-    renderer.setSize(display.clientWidth, display.clientHeight)
-    display.appendChild(renderer.domElement)
 
     const cube = new Mesh(new BoxGeometry(1, 1, 1), new MeshBasicMaterial({
       color: 0x00ff00
     }))
     scene.add(cube);
 
+    const display = this.display.current
+
+    const camera = new PerspectiveCamera(75, display.clientWidth / display.clientHeight, 0.1, 1000)
     camera.position.z = 5;
+
+    const renderer = new WebGLRenderer()
+    renderer.setSize(display.clientWidth, display.clientHeight)
+    display.appendChild(renderer.domElement)
 
     window.onresize = () => {
       renderer.setSize(display.clientWidth, display.clientHeight)
-      
+
       camera.aspect = display.clientWidth / display.clientHeight
       camera.updateProjectionMatrix()
     }
