@@ -8,7 +8,9 @@ import webpack from 'webpack'
 
 export default {
   mode: 'development',
-  entry: path.join(__dirname, 'app', 'main.js'),
+  entry: {
+    app: path.join(__dirname, 'app', 'main.js'),
+  },
   devtool: 'cheap-module-eval-source-map',
   output: {
     path: path.join(__dirname, 'public'),
@@ -77,8 +79,9 @@ export default {
         parallel: true
       }),
       new OptimizeCssAssetsPlugin({})
-    ]
-  },
-  devServer: {
+    ],
+		splitChunks: {
+			chunks: 'all',
+		}
   },
 }
