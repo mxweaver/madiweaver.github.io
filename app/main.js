@@ -5,7 +5,6 @@ import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-// import { Route, Switch } from 'react-router' // react-router v4
 import { ConnectedRouter } from 'connected-react-router'
 import App from './components/app'
 

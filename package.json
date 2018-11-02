@@ -19,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
@@ -47,9 +48,11 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "connected-react-router": "^4.5.0",
+    "debounce": "^1.2.0",
     "history": "^4.7.2",
     "normalize-scss": "^7.0.1",
     "react": "^16.6.0",
+    "react-conway": "^0.1.0",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",

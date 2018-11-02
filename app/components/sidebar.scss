@@ -1,14 +1,15 @@
 .sidebar {
   padding: 10px;
+  white-space: nowrap;
   
   h1, h2 {
 		margin-top: 0;
-		margin-bottom: 0;
+		margin-bottom: 5px;
 	}
 
 	h2 {
 		font-size: 1em;
-	}
+  }
 }
 
 .navlinkGroup {

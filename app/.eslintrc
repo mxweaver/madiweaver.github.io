@@ -1,6 +1,6 @@
 {
 	"plugins": [
-    "react"
+		"react"
 	],
 	"settings": {
 		"react": {
@@ -8,16 +8,16 @@
 		}
 	},
 	"extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
+		"eslint:recommended",
+		"plugin:react/recommended",
 		"plugin:import/errors"
-  ],
+	],
 	"env": {
-		"browser": true	
+		"browser": true
 	},
 	"rules": {
 		"react/forbid-prop-types": "off",
-    "react/jsx-filename-extension": "off",
-    "react/no-array-index-key": "off"
+		"react/jsx-filename-extension": "off",
+		"react/no-array-index-key": "off"
 	}
 }

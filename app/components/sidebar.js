@@ -43,13 +43,10 @@ export default class Sidebar extends React.Component {
 	render() {
 		return (
 			<div className={c.sidebar}>
-				<h1>maya vera</h1>
-				<h2>
-					<Link to="mailto:maya@mayavera.me">
-					{'<maya@mayavera.me>'}
-					</Link>
-				</h2>
-			<Nav/>
+				<h1>
+					<Link to='/'>asura's realm</Link>
+				</h1>
+				<Nav/>
 			</div>
 		)
 	}
