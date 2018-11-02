@@ -2,12 +2,19 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCssAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
 import path from 'path'
+import webpack from 'webpack'
 
 export default {
-  mode: 'production',
-  entry: path.join(__dirname, 'app', 'main.js'),
-  devtool: false,
+  mode: 'development',
+  entry: {
+    app: path.join(__dirname, 'app', 'main.js'),
+  },
+  devtool: 'cheap-module-eval-source-map',
+  devServer: {
+    historyApiFallback: true
+  },
   output: {
     path: path.join(__dirname, 'public'),
     filename: '[name].[chunkhash].js'
@@ -16,11 +23,16 @@ export default {
     new HtmlWebpackPlugin({
       title: 'Maya Vera',
       template: path.join(__dirname, 'app', 'index.html'),
-      filename: path.join(__dirname, 'index.html')
+    }),
+    new HtmlWebpackHarddiskPlugin({
+      alwaysWriteToDisk: true,
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contentHash].css'
-    })
+    }),
+    new webpack.ProvidePlugin({
+      THREE: 'three',
+    }),
   ],
   module: {
     rules: [
@@ -29,7 +41,12 @@ export default {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: true
+            cacheDirectory: true,
+            presets: ['@babel/preset-react'],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-proposal-class-properties'
+            ]
           }
         }
       },
@@ -38,9 +55,20 @@ export default {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: 'css-loader'
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+            }
           },
-          'postcss-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: 'postcss.config.js'
+              }
+            }
+          },
           'sass-loader'
         ]
       },
@@ -66,6 +94,9 @@ export default {
         parallel: true
       }),
       new OptimizeCssAssetsPlugin({})
-    ]
-  }
+    ],
+		splitChunks: {
+			chunks: 'all',
+		}
+  },
 }
