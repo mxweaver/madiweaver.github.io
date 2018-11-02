@@ -17,9 +17,7 @@ function NavGroup ({name, links, ...props}) {
 
 function Nav() {
 	const links = {
-		blog: [],
 		games: [
-			{ title: 'snake', url: '/snake' },
 			{ title: 'life', url: '/life' },
 		],
 		links: [
