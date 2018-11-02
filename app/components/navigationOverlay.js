@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from './link.js'
-import c from './sidebar.scss'
+import c from './navigationOverlay.scss'
 
 function NavGroup ({name, links, ...props}) {
 	return (
@@ -37,10 +37,10 @@ function Nav() {
 	)
 }
 
-export default class Sidebar extends React.Component {
+export default class NavigationOverlay extends React.Component {
 	render() {
 		return (
-			<div className={c.sidebar}>
+			<div className={c.overlay}>
 				<h1>
 					<Link to='/'>asura's realm</Link>
 				</h1>

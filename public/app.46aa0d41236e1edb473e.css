@@ -416,16 +416,19 @@ html, body {
   .app-components-link__link--2GcpV:active, .app-components-link__link--2GcpV:hover {
     color: #cc9bff; }
 
-.app-components-sidebar__sidebar--1Ciio {
+.app-components-navigationOverlay__overlay--1v7h6 {
+  position: fixed;
+  left: 10px;
+  top: 10px;
   padding: 10px;
   white-space: nowrap; }
-  .app-components-sidebar__sidebar--1Ciio h1, .app-components-sidebar__sidebar--1Ciio h2 {
+  .app-components-navigationOverlay__overlay--1v7h6 h1, .app-components-navigationOverlay__overlay--1v7h6 h2 {
     margin-top: 0;
     margin-bottom: 5px; }
-  .app-components-sidebar__sidebar--1Ciio h2 {
+  .app-components-navigationOverlay__overlay--1v7h6 h2 {
     font-size: 1em; }
 
-.app-components-sidebar__navlinkGroup--29iCg {
+.app-components-navigationOverlay__navlinkGroup--2XoQv {
   padding-left: 15px;
   display: flex;
   flex-direction: column;
