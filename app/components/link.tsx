@@ -4,9 +4,15 @@ import classnames from 'classnames'
 import URI from 'urijs'
 import c from './link.scss'
 
-export default class Link extends React.Component {
+interface Props {
+	to: string
+	className?: string
+	children?: React.Node
+}
+
+export default class Link extends React.Component<Props> {
 	render() {
-		const props = {
+		const props: Props = {
 			...this.props,
 			className: classnames(this.props.className, c.link)
 		}
@@ -14,17 +20,19 @@ export default class Link extends React.Component {
 		const uri = URI(this.props.to)
 
 		if (uri.protocol() === '' && uri.domain() === '') {
-			return <DOMLink {...props}/>
+			return <DOMLink {...props} />
 		} else if (['', 'http', 'https'].includes(uri.protocol())) {
 			return <a
 				href={props.to}
 				className={props.className}
 				target='_blank'
 				rel='noopener noreferrer'>
-					{props.children}
+				{props.children}
 			</a>
 		} else {
-			return <a href={props.to} className={props.className}>{props.children}</a>
+			return <a href={props.to} className={props.className}>
+				{props.children}
+			</a>
 		}
 	}
 }
