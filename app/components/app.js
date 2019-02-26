@@ -5,16 +5,16 @@ import NavigationOverlay from './navigationOverlay'
 import Intro from './intro'
 import c from './app.scss'
 
-const LifeContent = () => <Life className={c.life}/>
+const LifeContent = () => <Life className={c.life} />
 
 export default class App extends React.Component {
 	render() {
 		return (
 			<div className={c.app}>
-				<NavigationOverlay/>
+				<NavigationOverlay />
 				<div className={c.content}>
-					<Route exact path="/" component={Intro}/>
-					<Route exact path="/life" component={LifeContent}/>
+					<Route exact path="/" component={Intro} />
+					<Route exact path="/life" component={LifeContent} />
 				</div>
 			</div>
 		)

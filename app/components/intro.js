@@ -8,8 +8,7 @@ import {
   MeshPhongMaterial,
   DirectionalLight
 } from 'three'
-import 'three/examples/js/controls/OrbitControls'
-const OrbitControls = THREE.OrbitControls
+import OrbitControls from 'three-orbitcontrols'
 import c from './intro.scss'
 
 export default class Intro extends React.Component {
@@ -21,7 +20,7 @@ export default class Intro extends React.Component {
   componentDidMount() {
     const scene = new Scene()
 
-    const material = new MeshPhongMaterial( { color: 0xffffff, emissive: 0x444444 } )
+    const material = new MeshPhongMaterial({ color: 0xffffff, emissive: 0x444444 })
 
     const cube = new Mesh(new BoxGeometry(1, 1, 1), material)
     scene.add(cube);
@@ -49,7 +48,7 @@ export default class Intro extends React.Component {
 
     window.addEventListener('resize', this.onWindowResize)
 
-    function animate () {
+    function animate() {
       requestAnimationFrame(animate)
 
       cube.rotation.y += 0.01
@@ -66,6 +65,6 @@ export default class Intro extends React.Component {
   }
 
   render() {
-    return <div ref={this.display} className={c.intro}/>
+    return <div ref={this.display} className={c.intro} />
   }
 }
