@@ -1,13 +1,13 @@
 import React from 'react'
-import Link from './link.js'
+import Link from './link.tsx'
 import c from './navigationOverlay.scss'
 
-function NavGroup ({name, links, ...props}) {
+function NavGroup({ name, links, ...props }) {
 	return (
 		<div {...props}>
 			<div>{name}</div>
 			<div className={c.navlinkGroup}>
-				{links.map(({title, url}) => (
+				{links.map(({ title, url }) => (
 					<Link key={title} to={url}>{title}</Link>
 				))}
 			</div>
@@ -30,9 +30,9 @@ function Nav() {
 
 	return (
 		<nav>
-		{Object.entries(links).map(([name, links], i) => (
-			<NavGroup key={i} name={name} links={links}/>
-		))}
+			{Object.entries(links).map(([name, links], i) => (
+				<NavGroup key={i} name={name} links={links} />
+			))}
 		</nav>
 	)
 }
@@ -44,7 +44,7 @@ export default class NavigationOverlay extends React.Component {
 				<h1>
 					<Link to='/'>asura's realm</Link>
 				</h1>
-				<Nav/>
+				<Nav />
 			</div>
 		)
 	}

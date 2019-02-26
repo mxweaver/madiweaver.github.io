@@ -41,7 +41,7 @@ export default {
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.[jt]sx?$/,
         use: {
           loader: 'babel-loader',
           options: {
