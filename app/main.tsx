@@ -14,7 +14,7 @@ const reducers = combineReducers({
   foo: (state = {}) => state,
 })
 
-const _compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const _compose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
   connectRouter(history)(reducers),
