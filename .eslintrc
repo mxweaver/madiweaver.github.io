@@ -2,16 +2,23 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "env": {
-    "node": true
+    "node": true,
+    "browser": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:import/errors"
+    "plugin:react/recommended"
   ],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react"
   ],
+  "settings": {
+    "react": {
+      "version": "16.8"
+    }
+  },
   "rules": {
     "no-unused-expressions": [
       "error",
@@ -21,21 +28,13 @@
       }
     ],
     "no-plusplus": "off",
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        "devDependencies": [
-          "./postcss.config.js",
-          "./webpack.config.babel.js"
-        ]
-      }
-    ],
     "indent": "off",
     "@typescript-eslint/indent": [
       "error",
       2
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/no-array-index-key": "off"
   }
 }
