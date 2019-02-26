@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from './link.tsx'
+import Link from './link'
 import c from './navigationOverlay.scss'
 
 function NavGroup({ name, links, ...props }) {
