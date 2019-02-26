@@ -1,6 +1,6 @@
 import React from 'react'
-import Link from './link'
-import c from './navigationOverlay.scss'
+import Link from '../Link'
+import c from './NavigationOverlay.scss'
 
 interface Link {
 	title: string

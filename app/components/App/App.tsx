@@ -1,9 +1,9 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Life from 'react-conway'
-import NavigationOverlay from './navigationOverlay'
-import Intro from './intro'
-import c from './app.scss'
+import NavigationOverlay from '../NavigationOverlay'
+import Intro from '../Intro'
+import c from './App.scss'
 
 const LifeContent = () => <Life className={c.life} />
 

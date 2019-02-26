@@ -9,7 +9,7 @@ import {
   DirectionalLight
 } from 'three'
 import OrbitControls from 'three-orbitcontrols'
-import c from './intro.scss'
+import c from './Intro.scss'
 
 export default class Intro extends React.Component {
   display = React.createRef<HTMLDivElement>()

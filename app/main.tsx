@@ -6,7 +6,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
-import App from './components/app'
+import App from './components/App'
 
 const history = createBrowserHistory()
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link as DOMLink } from 'react-router-dom'
 import classnames from 'classnames'
 import URI from 'urijs'
-import c from './link.scss'
+import c from './Link.scss'
 
 interface Props {
 	to: string
