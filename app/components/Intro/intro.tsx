@@ -8,6 +8,7 @@ import {
   MeshPhongMaterial,
   DirectionalLight
 } from 'three'
+//@ts-ignore
 import OrbitControls from 'three-orbitcontrols'
 import c from './Intro.scss'
 
