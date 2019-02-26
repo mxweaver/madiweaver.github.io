@@ -3,7 +3,7 @@ import path from 'path'
 
 export default {
   entry: {
-    app: path.join(__dirname, 'app', 'main.js'),
+    app: path.join(__dirname, 'app', 'main.tsx'),
   },
   output: {
     path: path.join(__dirname, 'public'),
@@ -15,6 +15,9 @@ export default {
       template: path.join(__dirname, 'app', 'index.html')
     })
   ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
   module: {
     rules: [
       {
@@ -41,12 +44,15 @@ export default {
         ]
       },
       {
-        test: /\.js$/,
+        test: /\.[jt]sx?$/,
         use: {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            presets: ['@babel/preset-react'],
+            presets: [
+              '@babel/preset-react',
+              '@babel/preset-typescript'
+            ],
             plugins: [
               '@babel/plugin-proposal-object-rest-spread',
               '@babel/plugin-proposal-class-properties'
