@@ -12,13 +12,13 @@ import OrbitControls from 'three-orbitcontrols'
 import c from './Intro.scss'
 
 export default class Intro extends React.Component {
-  display = React.createRef<HTMLDivElement>()
-  renderer = new WebGLRenderer()
-  camera?: PerspectiveCamera
-  cube?: Mesh
-  scene?: Scene
+  private display = React.createRef<HTMLDivElement>()
+  private renderer = new WebGLRenderer()
+  private camera?: PerspectiveCamera
+  private cube?: Mesh
+  private scene?: Scene
 
-  componentDidMount() {
+  public componentDidMount() {
     this.scene = new Scene()
 
     const material = new MeshPhongMaterial({ color: 0xffffff, emissive: 0x444444 })
@@ -43,11 +43,11 @@ export default class Intro extends React.Component {
     this.animate()
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize)
   }
 
-  onWindowResize = () => {
+  private onWindowResize = () => {
     const { clientWidth: width, clientHeight: height } = this.display.current
 
     this.renderer.setSize(width, height)
@@ -55,7 +55,7 @@ export default class Intro extends React.Component {
     this.camera.updateProjectionMatrix()
   }
 
-  animate = () => {
+  private animate = () => {
     this.cube.rotation.y += 0.01
     this.cube.rotation.x += 0.005
 
@@ -64,7 +64,7 @@ export default class Intro extends React.Component {
     window.requestAnimationFrame(this.animate)
   }
 
-  render() {
+  public render() {
     return <div ref={this.display} className={c.intro} />
   }
 }
