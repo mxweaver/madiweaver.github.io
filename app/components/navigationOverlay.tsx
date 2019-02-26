@@ -2,21 +2,33 @@ import React from 'react'
 import Link from './link'
 import c from './navigationOverlay.scss'
 
-function NavGroup({ name, links, ...props }) {
-	return (
-		<div {...props}>
-			<div>{name}</div>
-			<div className={c.navlinkGroup}>
-				{links.map(({ title, url }) => (
-					<Link key={title} to={url}>{title}</Link>
-				))}
-			</div>
-		</div>
-	)
+interface Link {
+	title: string
+	url: string
 }
 
+interface LinkGroups {
+	[name: string]: Link[]
+}
+
+interface Props {
+	name: string
+	links: Link[]
+}
+
+const NavGroup = ({ name, links, ...props }: Props) => (
+	<div {...props}>
+		<div>{name}</div>
+		<div className={c.navGroup}>
+			{links.map(({ title, url }) => (
+				<Link key={title} to={url}>{title}</Link>
+			))}
+		</div>
+	</div>
+)
+
 function Nav() {
-	const links = {
+	const links: LinkGroups = {
 		games: [
 			{ title: 'life', url: '/life' },
 		],
@@ -37,15 +49,13 @@ function Nav() {
 	)
 }
 
-export default class NavigationOverlay extends React.Component {
-	render() {
-		return (
-			<div className={c.overlay}>
-				<h1>
-					<Link to='/'>asura's realm</Link>
-				</h1>
-				<Nav />
-			</div>
-		)
-	}
-}
+const NavigationOverlay = () => (
+	<div className={c.overlay}>
+		<h1>
+			<Link to='/'>asura's realm</Link>
+		</h1>
+		<Nav />
+	</div>
+)
+
+export default NavigationOverlay

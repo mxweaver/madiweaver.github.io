@@ -6,6 +6,9 @@
         "module": "commonjs",
         "target": "es6",
         "jsx": "preserve",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": [
+            "es2017"
+        ]
     }
 }
