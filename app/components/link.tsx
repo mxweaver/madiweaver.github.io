@@ -7,32 +7,30 @@ import c from './link.scss'
 interface Props {
 	to: string
 	className?: string
-	children?: React.Node
+	children?: React.ReactNode
 }
 
-export default class Link extends React.Component<Props> {
-	render() {
-		const props: Props = {
-			...this.props,
-			className: classnames(this.props.className, c.link)
-		}
+export function Link(props: Props) {
+	props = {
+		...props,
+		className: classnames(this.props.className, c.link)
+	}
 
-		const uri = URI(this.props.to)
+	const uri = URI(this.props.to)
 
-		if (uri.protocol() === '' && uri.domain() === '') {
-			return <DOMLink {...props} />
-		} else if (['', 'http', 'https'].includes(uri.protocol())) {
-			return <a
-				href={props.to}
-				className={props.className}
-				target='_blank'
-				rel='noopener noreferrer'>
-				{props.children}
-			</a>
-		} else {
-			return <a href={props.to} className={props.className}>
-				{props.children}
-			</a>
-		}
+	if (uri.protocol() === '' && uri.domain() === '') {
+		return <DOMLink {...props} />
+	} else if (['', 'http', 'https'].includes(uri.protocol())) {
+		return <a
+			href={props.to}
+			className={props.className}
+			target='_blank'
+			rel='noopener noreferrer'>
+			{props.children}
+		</a>
+	} else {
+		return <a href={props.to} className={props.className}>
+			{props.children}
+		</a>
 	}
 }
