@@ -2,22 +2,21 @@ import './main.scss'
 import React from 'react'
 import { createBrowserHistory } from 'history'
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux'
-import { connectRouter, routerMiddleware } from 'connected-react-router'
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { ConnectedRouter } from 'connected-react-router'
 import App from './components/App'
 
 const history = createBrowserHistory()
 
 const reducers = combineReducers({
-  foo: (state = {}) => state,
+  router: connectRouter(history)
 })
 
 const _compose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-  connectRouter(history)(reducers),
+  reducers,
   {},
   _compose(
     applyMiddleware(
