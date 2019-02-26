@@ -7,16 +7,14 @@ import c from './app.scss'
 
 const LifeContent = () => <Life className={c.life} />
 
-export default class App extends React.Component {
-	render() {
-		return (
-			<div className={c.app}>
-				<NavigationOverlay />
-				<div className={c.content}>
-					<Route exact path="/" component={Intro} />
-					<Route exact path="/life" component={LifeContent} />
-				</div>
-			</div>
-		)
-	}
-}
+const App = () => (
+	<div className={c.app}>
+		<NavigationOverlay />
+		<div className={c.content}>
+			<Route exact path="/" component={Intro} />
+			<Route exact path="/life" component={LifeContent} />
+		</div>
+	</div>
+)
+
+export default App
