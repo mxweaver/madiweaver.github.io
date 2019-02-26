@@ -7,7 +7,7 @@ export default {
   },
   output: {
     path: path.join(__dirname, 'public'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[hash].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
