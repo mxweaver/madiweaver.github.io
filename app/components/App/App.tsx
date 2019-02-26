@@ -11,13 +11,13 @@ import Life from 'react-conway'
 const LifeContent = () => <Life className={c.life} />
 
 const App = () => (
-	<div className={c.app}>
-		<NavigationOverlay />
-		<div className={c.content}>
-			<Route exact path="/" component={Intro} />
-			<Route exact path="/life" component={LifeContent} />
-		</div>
-	</div>
+  <div className={c.app}>
+    <NavigationOverlay />
+    <div className={c.content}>
+      <Route exact path="/" component={Intro} />
+      <Route exact path="/life" component={LifeContent} />
+    </div>
+  </div>
 )
 
 export default App

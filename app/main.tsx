@@ -11,26 +11,26 @@ import App from './components/App'
 const history = createBrowserHistory()
 
 const reducers = combineReducers({
-	foo: (state = {}) => state,
+  foo: (state = {}) => state,
 })
 
 const _compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const store = createStore(
-	connectRouter(history)(reducers),
-	{},
-	_compose(
-		applyMiddleware(
-			routerMiddleware(history)
-		)
-	)
+  connectRouter(history)(reducers),
+  {},
+  _compose(
+    applyMiddleware(
+      routerMiddleware(history)
+    )
+  )
 )
 
 ReactDOM.render(
-	<Provider store={store}>
-		<ConnectedRouter history={history}>
-			<App />
-		</ConnectedRouter>
-	</Provider>,
-	document.getElementById('app')
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <App />
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('app')
 )
