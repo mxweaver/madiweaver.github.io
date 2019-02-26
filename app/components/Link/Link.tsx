@@ -10,13 +10,13 @@ interface Props {
 	children?: React.ReactNode
 }
 
-export function Link(props: Props) {
+export default function Link(props: Props) {
 	props = {
 		...props,
-		className: classnames(this.props.className, c.link)
+		className: classnames(props.className, c.link)
 	}
 
-	const uri = URI(this.props.to)
+	const uri = URI(props.to)
 
 	if (uri.protocol() === '' && uri.domain() === '') {
 		return <DOMLink {...props} />
