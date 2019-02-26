@@ -12,56 +12,56 @@ import OrbitControls from 'three-orbitcontrols'
 import c from './intro.scss'
 
 export default class Intro extends React.Component {
-  constructor(...params) {
-    super(...params)
-    this.display = React.createRef()
-  }
+  display = React.createRef<HTMLDivElement>()
+  renderer = new WebGLRenderer()
+  camera?: PerspectiveCamera
+  cube?: Mesh
+  scene?: Scene
 
   componentDidMount() {
-    const scene = new Scene()
+    this.scene = new Scene()
 
     const material = new MeshPhongMaterial({ color: 0xffffff, emissive: 0x444444 })
 
-    const cube = new Mesh(new BoxGeometry(1, 1, 1), material)
-    scene.add(cube);
-
-    scene.add(new DirectionalLight(0xffffff, 0.5))
+    this.cube = new Mesh(new BoxGeometry(1, 1, 1), material)
+    this.scene.add(this.cube);
+    this.scene.add(new DirectionalLight(0xffffff, 0.5))
 
     const display = this.display.current
 
-    const camera = new PerspectiveCamera(75, display.clientWidth / display.clientHeight, 0.1, 1000)
-    camera.position.z = 5;
+    this.camera = new PerspectiveCamera(75, display.clientWidth / display.clientHeight, 0.1, 1000)
+    this.camera.position.z = 5;
 
-    const renderer = new WebGLRenderer()
-    renderer.setPixelRatio(window.devicePixelRatio)
-    renderer.setSize(display.clientWidth, display.clientHeight)
-    display.appendChild(renderer.domElement)
+    this.renderer.setPixelRatio(window.devicePixelRatio)
+    this.renderer.setSize(display.clientWidth, display.clientHeight)
+    display.appendChild(this.renderer.domElement)
 
-    new OrbitControls(camera, renderer.domElement)
-
-    this.onWindowResize = () => {
-      renderer.setSize(display.clientWidth, display.clientHeight)
-
-      camera.aspect = display.clientWidth / display.clientHeight
-      camera.updateProjectionMatrix()
-    }
+    new OrbitControls(this.camera, this.renderer.domElement)
 
     window.addEventListener('resize', this.onWindowResize)
 
-    function animate() {
-      requestAnimationFrame(animate)
-
-      cube.rotation.y += 0.01
-      cube.rotation.x += 0.005
-
-      renderer.render(scene, camera)
-    }
-    animate()
+    this.animate()
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onWindowResize)
-    this.onWindowResize = undefined
+  }
+
+  onWindowResize = () => {
+    const { clientWidth: width, clientHeight: height } = this.display.current
+
+    this.renderer.setSize(width, height)
+    this.camera.aspect = width / height
+    this.camera.updateProjectionMatrix()
+  }
+
+  animate = () => {
+    this.cube.rotation.y += 0.01
+    this.cube.rotation.x += 0.005
+
+    this.renderer.render(this.scene, this.camera)
+
+    window.requestAnimationFrame(this.animate)
   }
 
   render() {
