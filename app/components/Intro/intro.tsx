@@ -10,9 +10,10 @@ import {
 } from 'three'
 //@ts-ignore
 import OrbitControls from 'three-orbitcontrols'
+import animate, { WrappedProps } from '../../hoc/animate'
 import c from './Intro.scss'
 
-export default class Intro extends React.Component {
+class Intro extends React.Component<WrappedProps> {
   private display = React.createRef<HTMLDivElement>()
   private renderer = new WebGLRenderer()
   private camera?: PerspectiveCamera
@@ -40,8 +41,6 @@ export default class Intro extends React.Component {
     new OrbitControls(this.camera, this.renderer.domElement)
 
     window.addEventListener('resize', this.onWindowResize)
-
-    this.animate()
   }
 
   public componentWillUnmount() {
@@ -56,16 +55,18 @@ export default class Intro extends React.Component {
     this.camera.updateProjectionMatrix()
   }
 
-  private animate = () => {
-    this.cube.rotation.y += 0.01
-    this.cube.rotation.x += 0.005
+  public componentDidUpdate(prevProps: WrappedProps) {
+    if (this.props.step !== prevProps.step) {
+      this.cube.rotation.y += 0.01
+      this.cube.rotation.x += 0.005
 
-    this.renderer.render(this.scene, this.camera)
-
-    window.requestAnimationFrame(this.animate)
+      this.renderer.render(this.scene, this.camera)
+    }
   }
 
   public render() {
     return <div ref={this.display} className={c.intro} />
   }
 }
+
+export default animate(Intro)
