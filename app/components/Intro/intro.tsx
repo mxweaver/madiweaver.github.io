@@ -41,6 +41,7 @@ class Intro extends React.Component<WrappedProps> {
     new OrbitControls(this.camera, this.renderer.domElement)
 
     window.addEventListener('resize', this.onWindowResize)
+    this.props.onReady()
   }
 
   public componentWillUnmount() {

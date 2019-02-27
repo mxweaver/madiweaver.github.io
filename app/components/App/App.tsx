@@ -2,13 +2,16 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import NavigationOverlay from '../NavigationOverlay'
 import Intro from '../Intro'
+import Playground from '../Playground'
 import c from './App.scss'
 
 //TODO: upgrade react-conway to version with typescript
 //@ts-ignore
 import Life from 'react-conway'
 
-const LifeContent = () => <Life className={c.life} />
+const LifeContent = () => <Life className={c.content} />
+
+const PlaygroundContent = () => <Playground className={c.content} />
 
 const App = () => (
   <div className={c.app}>
@@ -16,6 +19,7 @@ const App = () => (
     <div className={c.content}>
       <Route exact path="/" component={Intro} />
       <Route exact path="/life" component={LifeContent} />
+      <Route exact path='/playground' component={PlaygroundContent} />
     </div>
   </div>
 )

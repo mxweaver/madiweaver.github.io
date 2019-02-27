@@ -4,6 +4,7 @@ import getDisplayName from 'react-display-name'
 
 export interface WrappedProps extends React.Props<any> {
   step: number;
+  onReady: () => void;
 }
 
 interface State {
@@ -18,21 +19,21 @@ export default function animate(WrappedComponent: React.ComponentType<WrappedPro
       step: 0
     }
 
-    public componentDidMount() {
-      this.tick()
-    }
-
-    public tick = () => {
+    private tick = () => {
       this.setState({ step: this.state.step + 1 })
       window.requestAnimationFrame(this.tick)
     }
 
     public render() {
-      return <WrappedComponent step={this.state.step} {...this.props} />
+      return <WrappedComponent
+        step={this.state.step}
+        onReady={this.tick}
+        {...this.props}
+      />
     }
   }
 
   hoistNonReactStatic(AnimatedComponent, WrappedComponent)
-  
+
   return AnimatedComponent
 }

@@ -4,6 +4,7 @@ import config from './webpack.config.base.babel'
 export default merge(config, {
   mode: 'development',
   devServer: {
-    hot: true
+    hot: true,
+    historyApiFallback: true
   }
 })
