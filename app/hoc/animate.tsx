@@ -9,25 +9,35 @@ export interface WrappedProps extends React.Props<any> {
 
 interface State {
   step: number;
+  previousAnimationTimestamp: number;
 }
 
-export default function animate(WrappedComponent: React.ComponentType<WrappedProps>) {
+const animate = (frequency: number) => (WrappedComponent: React.ComponentType<WrappedProps>) => {
+  const interval = 1000 / frequency
+
   class AnimatedComponent extends Component<{}, State> {
     public static displayName = `Animated(${getDisplayName(WrappedComponent)})`
 
     public state = {
-      step: 0
+      step: 0,
+      previousAnimationTimestamp: 0
     }
 
-    private tick = () => {
-      this.setState({ step: this.state.step + 1 })
+    private tick = (timestamp: number) => {
+      if (timestamp - this.state.previousAnimationTimestamp >= interval) {
+        this.setState({
+          step: this.state.step + 1,
+          previousAnimationTimestamp: timestamp
+        })
+      }
+
       window.requestAnimationFrame(this.tick)
     }
 
     public render() {
       return <WrappedComponent
         step={this.state.step}
-        onReady={this.tick}
+        onReady={() => this.tick(0)}
         {...this.props}
       />
     }
@@ -37,3 +47,5 @@ export default function animate(WrappedComponent: React.ComponentType<WrappedPro
 
   return AnimatedComponent
 }
+
+export default animate

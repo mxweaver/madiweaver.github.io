@@ -70,4 +70,4 @@ class Intro extends React.Component<WrappedProps> {
   }
 }
 
-export default animate(Intro)
+export default animate(60)(Intro)

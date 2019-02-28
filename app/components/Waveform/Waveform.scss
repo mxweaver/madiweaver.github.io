@@ -1,0 +1,9 @@
+.waveform {
+  display: flex;
+  align-items: flex-end;
+
+  > * {
+    background-color: white;
+    flex-grow: 1;
+  }
+}

@@ -4,7 +4,8 @@ import NavGroup from './NavGroup'
 const links: LinkGroups = {
   games: [
     { title: 'life', url: '/life' },
-    { title: 'playground', url: '/playground' }
+    { title: 'playground', url: '/playground' },
+    { title: 'waveform', url: '/waveform' }
   ],
   links: [
     { title: 'github', url: 'https://github.com/mayavera' },
