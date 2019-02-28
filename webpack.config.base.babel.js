@@ -12,7 +12,8 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Maya Vera',
-      template: path.join(__dirname, 'app', 'index.html')
+      template: path.join(__dirname, 'app', 'index.html'),
+      filename: path.join(__dirname, 'index.html')
     })
   ],
   resolve: {
