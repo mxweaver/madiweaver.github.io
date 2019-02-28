@@ -6,7 +6,7 @@ export default {
     app: path.join(__dirname, 'app', 'main.tsx'),
   },
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].[hash].js'
   },
   plugins: [
