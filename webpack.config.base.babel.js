@@ -1,4 +1,3 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 
 export default {
@@ -9,13 +8,6 @@ export default {
     path: path.join(__dirname, 'dist'),
     filename: '[name].[hash].js'
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Maya Vera',
-      template: path.join(__dirname, 'app', 'index.html'),
-      filename: path.join(__dirname, 'index.html')
-    })
-  ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
