@@ -12,4 +12,9 @@ export default merge(config, {
       filename: path.join(__dirname, 'index.html')
     })
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
+  }
 })
