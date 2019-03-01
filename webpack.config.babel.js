@@ -57,10 +57,16 @@ export default {
             options: {
               modules: true,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              sourceMap: !prod
             }
           },
           'postcss-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: !prod
+            }
+          }
         ]
       },
       {
