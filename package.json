@@ -9,11 +9,11 @@
   },
   "scripts": {
     "clean": "rm -rf dist && rm -f index.html",
-    "build": "webpack-cli --config webpack.config.prod.babel.js --progress",
-    "dev": "webpack-dev-server --config webpack.config.dev.babel.js",
+    "build": "NODE_ENV=production webpack-cli --progress",
+    "dev": "webpack-dev-server",
     "build-fresh": "npm run clean && npm run build",
     "lint": "eslint . --ext js --ext tsx --ext ts --cache",
-    "analyse": "webpack --config webpack.config.prod.babel.js --profile --json > stats.json",
+    "analyse": "NODE_ENV=production webpack --profile --json > stats.json",
     "view-analysis": "webpack-bundle-analyzer stats.json ."
   },
   "keywords": [],

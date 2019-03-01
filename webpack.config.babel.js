@@ -1,15 +1,35 @@
 import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+
+const prod = process.env.NODE_ENV === 'production'
 
 export default {
+  mode: prod ? 'production' : 'development',
   entry: {
     app: path.join(__dirname, 'app', 'main.tsx'),
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: prod ? '[contenthash].js' : '[name].[hash].js'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
+  devServer: {
+    hot: true,
+    historyApiFallback: true
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Maya Vera',
+      template: path.join(__dirname, 'app', 'index.html'),
+      filename: prod ? path.join(__dirname, 'index.html') : 'index.html'
+    })
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   module: {
     rules: [
