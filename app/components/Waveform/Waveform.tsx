@@ -45,4 +45,4 @@ class Waveform extends React.Component<Props> {
   }
 }
 
-export default animate(20)(Waveform)
+export default animate(60)(Waveform)
