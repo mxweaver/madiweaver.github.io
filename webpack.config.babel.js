@@ -20,6 +20,7 @@ export default {
     hot: true,
     historyApiFallback: true
   },
+  devtool: prod ? false : 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Maya Vera',
