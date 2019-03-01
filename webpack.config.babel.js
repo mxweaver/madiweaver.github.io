@@ -58,6 +58,7 @@ export default {
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
             }
           },
+          'postcss-loader',
           'sass-loader'
         ]
       },
