@@ -10,7 +10,7 @@ export default {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: prod ? '[contenthash].js' : '[name].[hash].js'
+    filename: prod ? '[name].[contenthash].js' : '[name].[hash].js'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
