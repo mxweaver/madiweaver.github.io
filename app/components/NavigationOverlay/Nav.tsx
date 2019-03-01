@@ -5,7 +5,8 @@ const links: LinkGroups = {
   games: [
     { title: 'life', url: '/life' },
     { title: 'playground', url: '/playground' },
-    { title: 'waveform', url: '/waveform' }
+    { title: 'waveform', url: '/waveform' },
+    { title: 'spectrum', url: '/spectrum' }
   ],
   links: [
     { title: 'github', url: 'https://github.com/mayavera' },

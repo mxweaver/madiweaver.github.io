@@ -4,26 +4,30 @@ import NavigationOverlay from '../NavigationOverlay'
 import Intro from '../Intro'
 import Playground from '../Playground'
 import Waveform from '../Waveform'
+import Spectrum from '../Spectrum'
 import c from './App.scss'
 
 //TODO: upgrade react-conway to version with typescript
 //@ts-ignore
 import Life from 'react-conway'
 
-const LifeContent = () => <Life className={c.content} />
+interface Props {
+  className?: string;
+}
 
-const PlaygroundContent = () => <Playground className={c.content} />
-
-const WaveformContent = () => <Waveform className={c.content} />
+function content(WrappedComponent: React.ComponentClass<Props>) {
+  return () => <WrappedComponent className={c.content} />
+}
 
 const App = () => (
   <div className={c.app}>
     <NavigationOverlay />
     <div className={c.content}>
-      <Route exact path="/" component={Intro} />
-      <Route exact path="/life" component={LifeContent} />
-      <Route exact path='/playground' component={PlaygroundContent} />
-      <Route exact path='/waveform' component={WaveformContent} />
+      <Route exact path="/" render={content(Intro)} />
+      <Route exact path="/life" render={content(Life)} />
+      <Route exact path='/playground' component={content(Playground)} />
+      <Route exact path='/waveform' component={content(Waveform)} />
+      <Route exact path='/spectrum' component={content(Spectrum)} />
     </div>
   </div>
 )
