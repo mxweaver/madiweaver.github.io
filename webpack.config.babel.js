@@ -1,5 +1,6 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const prod = process.env.NODE_ENV === 'production'
 
@@ -24,6 +25,10 @@ export default {
       title: 'Maya Vera',
       template: path.join(__dirname, 'app', 'index.html'),
       filename: prod ? path.join(__dirname, 'index.html') : 'index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+      chunkName: '[id].[contenthash].css'
     })
   ],
   optimization: {
@@ -45,7 +50,7 @@ export default {
       {
         test: /\.s?css$/,
         loader: [
-          'style-loader',
+          prod ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
