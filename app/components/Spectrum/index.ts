@@ -1,1 +1,1 @@
-export { default } from './Spectrum.tsx'
+export { default } from './Spectrum'
