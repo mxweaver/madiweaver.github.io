@@ -445,6 +445,8 @@ html, body {
 .app-components-Playground-Playground__display--1PGtT {
   width: 100%;
   height: 100%; }
+  .app-components-Playground-Playground__display--1PGtT circle {
+    fill: white; }
 
 .app-components-Waveform-Waveform__waveform--s_R_J {
   display: flex;

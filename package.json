@@ -68,6 +68,7 @@
     "debounce": "^1.2.0",
     "history": "^4.7.2",
     "hoist-non-react-statics": "^3.3.0",
+    "immer": "^2.1.0",
     "normalize-scss": "^7.0.1",
     "react": "^16.8.3",
     "react-conway": "^0.1.0",
