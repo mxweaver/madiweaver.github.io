@@ -18,7 +18,7 @@ class Spectrum extends React.Component<Props> {
     this.ctx = this.canvas.current.getContext('2d')
 
     navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      this.audioContext = new AudioContext({
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)({
         latencyHint: 'interactive'
       })
 

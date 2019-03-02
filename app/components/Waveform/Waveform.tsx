@@ -15,7 +15,7 @@ class Waveform extends React.Component<Props> {
 
   public componentDidMount() {
     navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      this.audioContext = new AudioContext()
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
 
       this.source = this.audioContext.createMediaStreamSource(stream)
 
