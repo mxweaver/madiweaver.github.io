@@ -35,4 +35,4 @@ class Playground extends Component<WrappedProps, State> {
   }
 }
 
-export default animate(Playground)
+export default animate(60)(Playground)
