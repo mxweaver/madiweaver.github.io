@@ -6,7 +6,7 @@ import c from './NavigationOverlay.scss'
 const NavigationOverlay = () => (
   <div className={c.overlay}>
     <h1>
-      <Link to='/'>{"asura's"} realm</Link>
+      <Link to='/'>maya vera</Link>
     </h1>
     <Nav />
   </div>
