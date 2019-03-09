@@ -1,5 +1,6 @@
 import React from 'react'
 import NavGroup from './NavGroup'
+import c from './nav.scss'
 
 const links: LinkGroups = {
   games: [
@@ -19,11 +20,11 @@ const links: LinkGroups = {
 
 function Nav() {
   return (
-    <nav>
+    <div className={c.nav}>
       {Object.entries(links).map(([name, links], i) => (
         <NavGroup key={i} name={name} links={links} />
       ))}
-    </nav>
+    </div>
   )
 }
 
