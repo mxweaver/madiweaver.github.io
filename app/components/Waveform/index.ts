@@ -1,1 +1,1 @@
-export { default } from './Waveform.tsx'
+export { default } from './Waveform'
