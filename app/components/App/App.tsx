@@ -16,7 +16,7 @@ interface Props {
 }
 
 function content(WrappedComponent: React.ComponentClass<Props>) {
-  return () => <WrappedComponent className={c.content} />
+  return function Content() { return <WrappedComponent className={c.content} /> }
 }
 
 const App = () => (
