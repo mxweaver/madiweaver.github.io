@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from '../Link'
 import Nav from './Nav'
-import c from './NavigationOverlay.scss'
+import c from './nav.scss'
 
 const NavigationOverlay = () => (
   <div className={c.overlay}>
-    <h1>
+    <div>
       <Link to='/'>maya vera</Link>
-    </h1>
+    </div>
     <Nav />
   </div>
 )
