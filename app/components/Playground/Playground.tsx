@@ -25,6 +25,8 @@ interface State {
 }
 
 class Playground extends Component<Props, State> {
+  container = React.createRef<SVGSVGElement>()
+
   public state: State = {
     circles: [],
     isNewShape: false
@@ -45,14 +47,16 @@ class Playground extends Component<Props, State> {
   }
 
   public handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
-    const { clientX, clientY } = event
+    const bounds = this.container.current.getBoundingClientRect()
+    const x = event.clientX - bounds.left
+    const y = event.clientY - bounds.top
     const target = event.target as SVGCircleElement
 
     if (event.target === event.currentTarget) {
       this.setState(produce((draft: State) => {
         const circle = {
-          x: clientX,
-          y: clientY,
+          x,
+          y,
           radius: 10
         }
 
@@ -66,20 +70,22 @@ class Playground extends Component<Props, State> {
         draft.isNewShape = false
         draft.selectedCircleId = Number(target.getAttribute('data-circle-id'))
         draft.dragOffset = {
-          x: clientX - draft.circles[draft.selectedCircleId].x,
-          y: clientY - draft.circles[draft.selectedCircleId].y
+          x: x - draft.circles[draft.selectedCircleId].x,
+          y: y - draft.circles[draft.selectedCircleId].y
         }
       }))
     }
   }
 
   public handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    const { clientX, clientY } = event
+    const bounds = this.container.current.getBoundingClientRect()
+    const x = event.clientX - bounds.left
+    const y = event.clientY - bounds.top
 
     if (this.state.selectedCircleId !== undefined) {
       this.setState(produce((draft: State) => {
-        draft.circles[draft.selectedCircleId].x = clientX - draft.dragOffset.x
-        draft.circles[draft.selectedCircleId].y = clientY - draft.dragOffset.y
+        draft.circles[draft.selectedCircleId].x = x - draft.dragOffset.x
+        draft.circles[draft.selectedCircleId].y = y - draft.dragOffset.y
       }))
     }
   }
@@ -95,6 +101,7 @@ class Playground extends Component<Props, State> {
 
     return (
       <svg
+        ref={this.container}
         className={classnames(this.props.className, c.display)}
         onMouseDown={this.handleMouseDown}
         onMouseMove={this.handleMouseMove}
