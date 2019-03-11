@@ -1,48 +1,47 @@
 import React from 'react'
+import { compose } from 'redux'
 import classnames from 'classnames'
-import animate, { WrappedProps } from '../../hoc/animate'
+import animate, { WrappedProps as AnimateProps } from '../../hoc/animate';
+import withAudioAnalyser, { WrappedProps as AudioProps } from '../../hoc/withAudioAnalyser';
 import c from './Waveform.scss'
 
-interface Props extends WrappedProps {
+interface Props extends AnimateProps, AudioProps {
   className?: string;
 }
 
-class Waveform extends React.Component<Props> {
-  private audioContext?: AudioContext
-  private source?: MediaStreamAudioSourceNode
-  private analyser?: AnalyserNode
-  private data?: Uint8Array
+interface State {
+  data?: Uint8Array
+}
 
-  public componentDidMount() {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
-
-      this.source = this.audioContext.createMediaStreamSource(stream)
-
-      this.analyser = this.audioContext.createAnalyser()
-      this.analyser.fftSize = 1024
-
-      this.data = new Uint8Array(this.analyser.frequencyBinCount)
-      this.analyser.getByteFrequencyData(this.data)
-      this.source.connect(this.analyser)
-
-      this.props.onReady()
-    })
-  }
+class Waveform extends React.Component<Props, State> {
+  public readonly state: State = {}
 
   public componentDidUpdate(prevProps: Props) {
+    const { analyser, onReady } = this.props
+
+    if (analyser && !prevProps.analyser) {
+      onReady()
+    }
+
     if (this.props.step !== prevProps.step) {
-      this.analyser.getByteFrequencyData(this.data)
+      const data = new Uint8Array(analyser.frequencyBinCount)
+      analyser.getByteFrequencyData(data)
+      this.setState({ data })
     }
   }
 
   public render() {
+    const { data } = this.state
+
     return (
       <div className={classnames(this.props.className, c.waveform)}>
-        {this.data && Array.from(this.data).map((x, i) => <div key={i} style={{ height: x }} />)}
+        {data && Array.from(data).map((x, i) => <div key={i} style={{ height: x }} />)}
       </div>
     )
   }
 }
 
-export default animate(60)(Waveform)
+export default compose(
+  animate(60),
+  withAudioAnalyser(1024)
+)(Waveform)
