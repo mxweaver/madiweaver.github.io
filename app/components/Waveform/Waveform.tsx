@@ -10,7 +10,7 @@ interface Props extends AnimateProps, AudioProps {
 }
 
 interface State {
-  data?: Uint8Array
+  data?: Uint8Array;
 }
 
 class Waveform extends React.Component<Props, State> {
