@@ -25,7 +25,7 @@ interface State {
 }
 
 class Playground extends Component<Props, State> {
-  container = React.createRef<SVGSVGElement>()
+  private container = React.createRef<SVGSVGElement>()
 
   public state: State = {
     circles: [],

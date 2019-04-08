@@ -40,7 +40,7 @@ export default class Motion extends React.Component<Props, State> {
   }
 
   public render() {
-    const { alpha, beta, gamma } = this.state
+    const { beta, gamma } = this.state
 
     return (
       <svg className={classnames(this.props.className, c.motion)}>
