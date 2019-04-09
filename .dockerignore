@@ -6,3 +6,7 @@ node_modules
 .nojekyll
 README.md
 stats.json
+dist
+.dockerignore
+dev.Dockerfile
+docker-compose.yml

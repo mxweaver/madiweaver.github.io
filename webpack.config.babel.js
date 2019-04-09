@@ -19,6 +19,7 @@ export default {
   devServer: {
     hot: true,
     historyApiFallback: true,
+    disableHostCheck: true,
     host: '0.0.0.0'
   },
   devtool: prod ? false : 'source-map',
