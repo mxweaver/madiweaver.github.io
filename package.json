@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -f index.html",
     "build": "NODE_ENV=production webpack-cli --progress",
-    "dev": "webpack-dev-server",
+    "dev": "webpack-dev-server --color",
     "build-fresh": "npm run clean && npm run build",
     "lint": "eslint . --ext js --ext tsx --ext ts --cache",
     "analyse": "NODE_ENV=production webpack --profile --json > stats.json",
