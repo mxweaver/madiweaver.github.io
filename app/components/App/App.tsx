@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import NavigationOverlay from '../NavigationOverlay'
+import Header from '../Header'
 import Intro from '../Intro'
 import Playground from '../Playground'
 import Waveform from '../Waveform'
@@ -22,7 +22,7 @@ function content(WrappedComponent: React.ComponentClass<Props>) {
 
 const App = () => (
   <div className={c.app}>
-    <NavigationOverlay />
+    <Header />
     <div className={c.content}>
       <Route exact path="/" render={content(Intro)} />
       <Route exact path="/life" render={content(Life)} />

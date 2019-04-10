@@ -1,6 +1,6 @@
 import React from 'react'
 import NavGroup from './NavGroup'
-import c from './nav.scss'
+import c from './header.scss'
 
 const links: LinkGroups = {
   games: [

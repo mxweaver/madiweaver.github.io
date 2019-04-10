@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import Link from '../Link'
-import c from './nav.scss'
+import c from './header.scss'
 
 interface Props extends React.HTMLProps<HTMLDivElement>{
   name: string;
