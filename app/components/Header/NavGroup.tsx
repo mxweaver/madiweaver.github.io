@@ -5,7 +5,7 @@ import c from './header.scss'
 
 interface Props extends React.HTMLProps<HTMLDivElement>{
   name: string;
-  links: Link[];
+  links: NavLink[];
 }
 
 const NavGroup = ({ name, links, className, ...props }: Props) => (

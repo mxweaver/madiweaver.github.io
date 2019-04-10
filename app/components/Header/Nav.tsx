@@ -2,7 +2,11 @@ import React from 'react'
 import NavGroup from './NavGroup'
 import c from './header.scss'
 
-const links: LinkGroups = {
+interface NavGroups {
+  [name: string]: NavLink[];
+}
+
+const groups: NavGroups = {
   games: [
     { title: 'life', url: '/life' },
     { title: 'playground', url: '/playground' },
@@ -21,7 +25,7 @@ const links: LinkGroups = {
 function Nav() {
   return (
     <div className={c.nav}>
-      {Object.entries(links).map(([name, links], i) => (
+      {Object.entries(groups).map(([name, links], i) => (
         <NavGroup key={i} name={name} links={links} />
       ))}
     </div>

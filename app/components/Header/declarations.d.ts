@@ -1,8 +1,4 @@
-interface Link {
+interface NavLink {
   title: string;
   url: string;
-}
-
-interface LinkGroups {
-  [name: string]: Link[];
 }
