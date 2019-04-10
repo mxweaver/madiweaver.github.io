@@ -1,6 +1,9 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const prod = process.env.NODE_ENV === 'production'
 
@@ -28,8 +31,9 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Maya Vera',
-      template: path.join(__dirname, 'app', 'index.html'),
-      filename: prod ? path.join(__dirname, 'index.html') : 'index.html'
+      template: path.join(__dirname, 'app', 'index.ejs'),
+      filename: prod ? path.join(__dirname, 'index.html') : 'index.html',
+      env: process.env
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
