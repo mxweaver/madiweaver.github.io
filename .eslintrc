@@ -1,41 +1,24 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+  },
   "env": {
     "node": true,
     "browser": true,
     "es6": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended"
+    "airbnb",
+    "airbnb-typescript"
   ],
   "plugins": [
-    "@typescript-eslint",
-    "react"
+    "@typescript-eslint"
   ],
   "settings": {
     "react": {
       "version": "16.8"
     }
-  },
-  "rules": {
-    "no-unused-expressions": [
-      "error",
-      {
-        "allowShortCircuit": true,
-        "allowTernary": true
-      }
-    ],
-    "no-plusplus": "off",
-    "indent": "off",
-    "@typescript-eslint/indent": [
-      "error",
-      2
-    ],
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "react/no-array-index-key": "off"
   }
 }

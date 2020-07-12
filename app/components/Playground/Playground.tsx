@@ -1,8 +1,18 @@
-import React, { Component } from 'react'
-import produce from 'immer'
-import classnames from 'classnames'
-import animate, { WrappedProps } from '../../hoc/animate'
-import c from './Playground.scss'
+import React, {
+  FunctionComponent,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
+import classnames from 'classnames';
+import animate, { WrappedProps } from '../../hoc/animate';
+import c from './Playground.scss';
+
+let lastCircleId = 0;
+function getCircleId(): number {
+  lastCircleId += 1;
+  return lastCircleId;
+}
 
 interface Point {
   x: number;
@@ -10,113 +20,118 @@ interface Point {
 }
 
 interface Circle extends Point {
+  id: number;
   radius: number;
+}
+
+interface CircleSet {
+  [key: number]: Circle;
 }
 
 interface Props extends WrappedProps {
   className?: string;
 }
 
-interface State {
-  circles: Circle[];
-  selectedCircleId?: number;
-  isNewShape: boolean;
-  dragOffset?: Point;
-}
+const Playground: FunctionComponent = (props: Props) => {
+  const { onReady, className, step } = props;
+  const container = useRef<SVGSVGElement>();
 
-class Playground extends Component<Props, State> {
-  private container = React.createRef<SVGSVGElement>()
+  const [circles, setCircles] = useState<CircleSet>({});
+  const [isNewShape, setIsNewShape] = useState<boolean>(false);
+  const [selectedCircleId, setSelectedCircleId] = useState<number | undefined>();
+  const [dragOffset, setDragOffset] = useState<Point | undefined>();
 
-  public state: State = {
-    circles: [],
-    isNewShape: false
-  }
+  useEffect(onReady, []);
 
-  public componentDidMount() {
-    this.props.onReady()
-  }
+  useEffect(() => {
+    if (selectedCircleId !== undefined && isNewShape) {
+      const selectedCircle = circles[selectedCircleId];
 
-  public componentDidUpdate(prevProps: WrappedProps) {
-    if (this.props.step !== prevProps.step) {
-      if (this.state.selectedCircleId !== undefined && this.state.isNewShape) {
-        this.setState(produce((draft: State) => {
-          draft.circles[draft.selectedCircleId].radius++
-        }))
-      }
+      setCircles({
+        ...circles,
+        [selectedCircleId]: {
+          ...selectedCircle,
+          radius: selectedCircle.radius + 1,
+        },
+      });
     }
-  }
+  }, [step]);
 
-  public handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
-    const bounds = this.container.current.getBoundingClientRect()
-    const x = event.clientX - bounds.left
-    const y = event.clientY - bounds.top
-    const target = event.target as SVGCircleElement
+  const handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
+    const bounds = container.current.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
+    const target = event.target as SVGCircleElement;
 
     if (event.target === event.currentTarget) {
-      this.setState(produce((draft: State) => {
-        const circle = {
-          x,
-          y,
-          radius: 10
-        }
-
-        draft.circles.push(circle)
-        draft.selectedCircleId = draft.circles.length - 1
-        draft.isNewShape = true
-        draft.dragOffset = { x: 0, y: 0 }
-      }))
+      const circle = {
+        id: getCircleId(),
+        x,
+        y,
+        radius: 10,
+      };
+      setCircles({ ...circles, [circle.id]: circle });
+      setSelectedCircleId(circle.id);
+      setDragOffset({ x: 0, y: 0 });
+      setIsNewShape(true);
     } else {
-      this.setState(produce((draft: State) => {
-        draft.isNewShape = false
-        draft.selectedCircleId = Number(target.getAttribute('data-circle-id'))
-        draft.dragOffset = {
-          x: x - draft.circles[draft.selectedCircleId].x,
-          y: y - draft.circles[draft.selectedCircleId].y
-        }
-      }))
+      const circleId = Number(target.getAttribute('data-circle-id'));
+      setIsNewShape(false);
+      setSelectedCircleId(circleId);
+      setDragOffset({
+        x: x - circles[circleId].x,
+        y: y - circles[circleId].y,
+      });
     }
-  }
+  };
 
-  public handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
-    const bounds = this.container.current.getBoundingClientRect()
-    const x = event.clientX - bounds.left
-    const y = event.clientY - bounds.top
+  const handleMouseMove = (event: React.MouseEvent<SVGSVGElement>) => {
+    const bounds = container.current.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
 
-    if (this.state.selectedCircleId !== undefined) {
-      this.setState(produce((draft: State) => {
-        draft.circles[draft.selectedCircleId].x = x - draft.dragOffset.x
-        draft.circles[draft.selectedCircleId].y = y - draft.dragOffset.y
-      }))
+    if (selectedCircleId !== undefined) {
+      const selectedCircle = circles[selectedCircleId];
+      setCircles({
+        ...circles,
+        [selectedCircleId]: {
+          ...selectedCircle,
+          x: x - dragOffset.x,
+          y: y - dragOffset.y,
+        },
+      });
     }
-  }
+  };
 
-  public handleMouseUp = () => {
-    this.setState({
-      selectedCircleId: undefined
-    })
-  }
+  const handleMouseUp = () => {
+    setSelectedCircleId(undefined);
+  };
 
-  public render() {
-    const { circles } = this.state
+  return (
+    <svg
+      ref={container}
+      className={classnames(className, c.display)}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
+      {Object.values(circles).map(({
+        id, radius, x, y,
+      }) => (
+        <circle
+          key={id}
+          data-circle-id={id}
+          r={radius}
+          cx={x}
+          cy={y}
+        />
+      ))}
+    </svg>
+  );
+};
 
-    return (
-      <svg
-        ref={this.container}
-        className={classnames(this.props.className, c.display)}
-        onMouseDown={this.handleMouseDown}
-        onMouseMove={this.handleMouseMove}
-        onMouseUp={this.handleMouseUp}
-      >
-        {circles.map((c, i) => <circle
-          key={i}
-          data-circle-id={i}
-          r={c.radius}
-          cx={c.x}
-          cy={c.y}
-        />)}
-      </svg>
-    )
-  }
-}
+Playground.defaultProps = {
+  className: undefined,
+};
 
-export default animate(60)(Playground)
+export default animate(60)(Playground);

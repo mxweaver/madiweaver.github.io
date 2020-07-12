@@ -1,8 +1,8 @@
-import React from 'react'
-import { Link as DOMLink } from 'react-router-dom'
-import classnames from 'classnames'
-import URI from 'urijs'
-import c from './Link.scss'
+import React, { FunctionComponent } from 'react';
+import { Link as DOMLink } from 'react-router-dom';
+import classnames from 'classnames';
+import URI from 'urijs';
+import c from './Link.scss';
 
 interface Props {
   to: string;
@@ -10,27 +10,41 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export default function Link(props: Props) {
-  props = {
-    ...props,
-    className: classnames(props.className, c.link)
-  }
+const Link: FunctionComponent = (props: Props) => {
+  const { to, className, children } = props;
 
-  const uri = URI(props.to)
+  const alteredClassName = classnames(className, c.link);
+  const uri = URI(to);
 
   if (uri.protocol() === '' && uri.domain() === '') {
-    return <DOMLink {...props} />
-  } else if (['', 'http', 'https'].includes(uri.protocol())) {
-    return <a
-      href={props.to}
-      className={props.className}
-      target='_blank'
-      rel='noopener noreferrer'>
-      {props.children}
-    </a>
-  } else {
-    return <a href={props.to} className={props.className}>
-      {props.children}
-    </a>
+    return (
+      <DOMLink to={to} className={alteredClassName}>
+        {children}
+      </DOMLink>
+    );
+  } if (['', 'http', 'https'].includes(uri.protocol())) {
+    return (
+      <a
+        href={to}
+        className={alteredClassName}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {props.children}
+      </a>
+    );
   }
-}
+
+  return (
+    <a href={to} className={alteredClassName}>
+      {children}
+    </a>
+  );
+};
+
+Link.defaultProps = {
+  className: undefined,
+  children: undefined,
+};
+
+export default Link;

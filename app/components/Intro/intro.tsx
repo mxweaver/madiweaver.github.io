@@ -1,10 +1,5 @@
-import React from 'react'
-import animate, { WrappedProps } from '../../hoc/animate'
+import React, { FunctionComponent} from 'react';
 
-class Intro extends React.Component<WrappedProps> {
-  public render() {
-    return <div />
-  }
-}
+const Intro: FunctionComponent = () => (<div />);
 
-export default Intro
+export default Intro;

@@ -1,6 +1,6 @@
-import React from 'react'
-import NavGroup from './NavGroup'
-import c from './header.scss'
+import React from 'react';
+import NavGroup from './NavGroup';
+import c from './header.scss';
 
 interface NavGroups {
   [name: string]: NavLink[];
@@ -20,16 +20,16 @@ const groups: NavGroups = {
     { title: 'codewars', url: 'https://www.codewars.com/users/mayavera' },
     { title: 'stackoverflow', url: 'https://stackexchange.com/users/13452692/maya-vera' },
   ],
-}
+};
 
 function Nav() {
   return (
     <div className={c.nav}>
-      {Object.entries(groups).map(([name, links], i) => (
-        <NavGroup key={i} name={name} links={links} />
+      {Object.entries(groups).map(([name, links]) => (
+        <NavGroup key={name} name={name} links={links} />
       ))}
     </div>
-  )
+  );
 }
 
-export default Nav
+export default Nav;

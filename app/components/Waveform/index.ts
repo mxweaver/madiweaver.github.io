@@ -1,1 +1,1 @@
-export { default } from './Waveform'
+export { default } from './Waveform';

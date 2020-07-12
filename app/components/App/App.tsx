@@ -1,23 +1,23 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import Header from '../Header'
-import Intro from '../Intro'
-import Playground from '../Playground'
-import Waveform from '../Waveform'
-import Spectrum from '../Spectrum'
-import Motion from '../Motion'
-import c from './App.scss'
+import React from 'react';
+import { Route } from 'react-router-dom';
+import Life from 'react-conway';
+import Header from '../Header';
+import Intro from '../Intro';
+import Playground from '../Playground';
+import Waveform from '../Waveform';
+import Spectrum from '../Spectrum';
+import Motion from '../Motion';
+import c from './App.scss';
 
-//TODO: upgrade react-conway to version with typescript
-//@ts-ignore
-import Life from 'react-conway'
+// TODO: upgrade react-conway to version with typescript
+// @ts-ignore
 
 interface Props {
   className?: string;
 }
 
 function content(WrappedComponent: React.ComponentClass<Props>) {
-  return function Content() { return <WrappedComponent className={c.content} /> }
+  return function Content() { return <WrappedComponent className={c.content} />; };
 }
 
 const App = () => (
@@ -26,12 +26,12 @@ const App = () => (
     <div className={c.content}>
       <Route exact path="/" render={content(Intro)} />
       <Route exact path="/life" render={content(Life)} />
-      <Route exact path='/playground' component={content(Playground)} />
-      <Route exact path='/waveform' component={content(Waveform)} />
-      <Route exact path='/spectrum' component={content(Spectrum)} />
-      <Route exact path='/motion' component={content(Motion)}/>
+      <Route exact path="/playground" component={content(Playground)} />
+      <Route exact path="/waveform" component={content(Waveform)} />
+      <Route exact path="/spectrum" component={content(Spectrum)} />
+      <Route exact path="/motion" component={content(Motion)} />
     </div>
   </div>
-)
+);
 
-export default App
+export default App;

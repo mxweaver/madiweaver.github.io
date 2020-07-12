@@ -1,11 +1,11 @@
-import path from 'path'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import dotenv from 'dotenv'
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
-const prod = process.env.NODE_ENV === 'production'
+const prod = process.env.NODE_ENV === 'production';
 
 export default {
   mode: prod ? 'production' : 'development',
@@ -14,10 +14,10 @@ export default {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: prod ? '[name].[contenthash].js' : '[name].[hash].js'
+    filename: prod ? '[name].[contenthash].js' : '[name].[hash].js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   devServer: {
     hot: true,
@@ -25,7 +25,7 @@ export default {
     disableHostCheck: true,
     host: '0.0.0.0',
     compress: true,
-    https: true
+    https: true,
   },
   devtool: prod ? false : 'source-map',
   plugins: [
@@ -33,17 +33,17 @@ export default {
       title: 'Maya Vera',
       template: path.join(__dirname, 'app', 'index.ejs'),
       filename: prod ? path.join(__dirname, 'index.html') : 'index.html',
-      env: process.env
+      env: process.env,
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
-      chunkName: '[id].[contenthash].css'
-    })
+      chunkName: '[id].[contenthash].css',
+    }),
   ],
   optimization: {
     splitChunks: {
-      chunks: 'all'
-    }
+      chunks: 'all',
+    },
   },
   module: {
     rules: [
@@ -52,9 +52,9 @@ export default {
         use: {
           loader: 'html-loader',
           options: {
-            minimize: true
-          }
-        }
+            minimize: true,
+          },
+        },
       },
       {
         test: /\.s?css$/,
@@ -65,17 +65,17 @@ export default {
             options: {
               modules: true,
               localIdentName: '[path][name]__[local]--[hash:base64:5]',
-              sourceMap: !prod
-            }
+              sourceMap: !prod,
+            },
           },
           'postcss-loader',
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: !prod
-            }
-          }
-        ]
+              sourceMap: !prod,
+            },
+          },
+        ],
       },
       {
         test: /\.[jt]sx?$/,
@@ -86,19 +86,19 @@ export default {
             presets: [
               ['@babel/preset-env', {
                 targets: {
-                  browsers: ["last 2 versions"]
-                }
+                  browsers: ['last 2 versions'],
+                },
               }],
               '@babel/preset-react',
-              '@babel/preset-typescript'
+              '@babel/preset-typescript',
             ],
             plugins: [
               '@babel/plugin-proposal-object-rest-spread',
-              '@babel/plugin-proposal-class-properties'
-            ]
-          }
-        }
-      }
-    ]
-  }
-}
+              '@babel/plugin-proposal-class-properties',
+            ],
+          },
+        },
+      },
+    ],
+  },
+};

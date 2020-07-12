@@ -1,1 +1,1 @@
-export { default } from './Spectrum'
+export { default } from './Spectrum';
