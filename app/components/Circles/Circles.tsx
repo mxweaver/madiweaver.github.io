@@ -1,6 +1,6 @@
 import React, { FC, useRef, useState } from 'react';
 import useAnimation from '../../hooks/useAnimation';
-import c from './Playground.scss';
+import c from './Circles.scss';
 
 let lastCircleId = 0;
 function getCircleId(): number {
@@ -22,7 +22,7 @@ interface CircleSet {
   [key: number]: Circle;
 }
 
-const Playground: FC<{}> = () => {
+const Circles: FC<{}> = () => {
   const container = useRef<SVGSVGElement>();
 
   const [circles, setCircles] = useState<CircleSet>({});
@@ -116,4 +116,5 @@ const Playground: FC<{}> = () => {
     </svg>
   );
 };
-export default Playground;
+
+export default Circles;

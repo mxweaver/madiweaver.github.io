@@ -2,7 +2,7 @@ import { RouteProps } from 'react-router-dom';
 // TODO: upgrade react-conway to version with typescript
 // @ts-ignore
 import Life from 'react-conway';
-import Playground from './components/Playground';
+import Circles from './components/Circles';
 import Waveform from './components/Waveform';
 import Spectrum from './components/Spectrum';
 import Motion from './components/Motion';
@@ -26,9 +26,9 @@ export default {
     //   component: Life,
     // },
     {
-      title: 'playground',
-      url: '/playground',
-      component: Playground,
+      title: 'circles',
+      url: '/circles',
+      component: Circles,
     },
     {
       title: 'waveform',
