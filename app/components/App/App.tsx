@@ -12,7 +12,7 @@ import c from './App.scss';
 // TODO: upgrade react-conway to version with typescript
 // @ts-ignore
 
-const App: FC = () => (
+const App: FC<{}> = () => (
   <BrowserRouter>
     <div className={c.app}>
       <Header />

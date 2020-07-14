@@ -5,9 +5,11 @@
 
 .app-components-Header-header__overlay--wB7DY{display:flex;justify-content:space-between;align-items:center;white-space:nowrap;padding:10px}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd{display:flex}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd{position:relative}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd:not(:hover) .app-components-Header-header__links--2edE3{display:none}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd:not(:first-child){margin-left:13px}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd .app-components-Header-header__title--1zsg_{cursor:pointer}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd .app-components-Header-header__links--2edE3{position:absolute;right:0;text-align:right}.app-components-Header-header__overlay--wB7DY .app-components-Header-header__nav--KwdLd .app-components-Header-header__group--1Ddbd .app-components-Header-header__links--2edE3 a{margin-top:5px;display:block}
 
-.app-components-Playground-Playground__display--1PGtT{width:100%;height:100%}.app-components-Playground-Playground__display--1PGtT circle{fill:white}
+.app-components-Playground-Playground__display--1PGtT{width:100%;height:100%}.app-components-Playground-Playground__display--1PGtT circle{fill:white;cursor:-webkit-grab;cursor:grab}
 
-.app-components-Waveform-Waveform__waveform--s_R_J{display:flex;align-items:flex-end}.app-components-Waveform-Waveform__waveform--s_R_J>*{background-color:white;flex-grow:1}
+.app-components-Waveform-Waveform__waveform--s_R_J{display:flex;align-items:flex-end;width:100%}.app-components-Waveform-Waveform__waveform--s_R_J>*{background-color:white;flex-grow:1}
+
+.app-components-Spectrum-Spectrum__canvas--27IHj{width:100%;height:100%}
 
 .app-components-Motion-Motion__motion--3ZLf9 circle{fill:white}
 
