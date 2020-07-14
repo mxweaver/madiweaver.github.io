@@ -1,4 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
+import chroma from 'chroma-js';
 import useAnimation from '../../hooks/useAnimation';
 import c from './Circles.scss';
 
@@ -6,15 +7,6 @@ let lastCircleId = 0;
 function getCircleId(): number {
   lastCircleId += 1;
   return lastCircleId;
-}
-
-function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i += 1) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
 }
 
 interface Point {
@@ -66,7 +58,7 @@ const Circles: FC<{}> = () => {
         x,
         y,
         radius: 10,
-        color: getRandomColor(),
+        color: chroma.random().brighten(2).css(),
       };
       setCircles({ ...circles, [circle.id]: circle });
       setSelectedCircleId(circle.id);
@@ -126,7 +118,6 @@ const Circles: FC<{}> = () => {
             cursor: selectedCircleId ? 'grabbing' : undefined,
             fill: color,
           }}
-          opacity={0.5}
         />
       ))}
     </svg>
