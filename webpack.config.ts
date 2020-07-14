@@ -2,6 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import dotenv from 'dotenv';
+import { Configuration } from 'webpack';
 
 dotenv.config();
 
@@ -85,4 +86,4 @@ export default {
       },
     ],
   },
-};
+} as Configuration;
