@@ -20,11 +20,11 @@ export interface Routes {
 
 export default {
   games: [
-    {
-      title: 'life',
-      url: '/life',
-      component: Life,
-    },
+    // {
+    //   title: 'life',
+    //   url: '/life',
+    //   component: Life,
+    // },
     {
       title: 'playground',
       url: '/playground',
@@ -40,11 +40,11 @@ export default {
       url: '/spectrum',
       component: Spectrum,
     },
-    {
-      title: 'motion',
-      url: '/motion',
-      component: Motion,
-    },
+    // {
+    //   title: 'motion',
+    //   url: '/motion',
+    //   component: Motion,
+    // },
     {
       title: 'animation',
       url: '/animation',
