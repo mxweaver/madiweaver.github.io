@@ -37,7 +37,7 @@ export default {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
-      chunkName: '[id].[contenthash].css',
+      chunkFilename: '[id].[contenthash].css',
     }),
   ],
   optimization: {
