@@ -8,6 +8,15 @@ function getCircleId(): number {
   return lastCircleId;
 }
 
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i += 1) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 interface Point {
   x: number;
   y: number;
@@ -16,6 +25,7 @@ interface Point {
 interface Circle extends Point {
   id: number;
   radius: number;
+  color: string;
 }
 
 interface CircleSet {
@@ -56,6 +66,7 @@ const Circles: FC<{}> = () => {
         x,
         y,
         radius: 10,
+        color: getRandomColor(),
       };
       setCircles({ ...circles, [circle.id]: circle });
       setSelectedCircleId(circle.id);
@@ -103,7 +114,7 @@ const Circles: FC<{}> = () => {
       onMouseUp={handleMouseUp}
     >
       {Object.values(circles).map(({
-        id, radius, x, y,
+        id, radius, x, y, color,
       }) => (
         <circle
           key={id}
@@ -113,7 +124,9 @@ const Circles: FC<{}> = () => {
           cy={y}
           style={{
             cursor: selectedCircleId ? 'grabbing' : undefined,
+            fill: color,
           }}
+          opacity={0.5}
         />
       ))}
     </svg>
