@@ -10,7 +10,7 @@ const App: FC<{}> = () => (
       <Header />
       <div className={c.content}>
         {routes.games.map((route) => (
-          <Route exact path={route.url} component={route.component} />
+          <Route exact key={route.url} path={route.url} component={route.component} />
         ))}
       </div>
     </div>
