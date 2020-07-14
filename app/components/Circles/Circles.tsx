@@ -111,6 +111,9 @@ const Circles: FC<{}> = () => {
           r={radius}
           cx={x}
           cy={y}
+          style={{
+            cursor: selectedCircleId ? 'grabbing' : undefined,
+          }}
         />
       ))}
     </svg>
