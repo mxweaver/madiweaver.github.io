@@ -1,52 +1,42 @@
-import React from 'react';
-import { compose } from 'redux';
-import animate, { WrappedProps as AnimateProps } from '../../hoc/animate';
-import withAudioAnalyser, { WrappedProps as AudioProps } from '../../hoc/withAudioAnalyser';
+import React, {
+  FC, useEffect, useState, useRef,
+} from 'react';
+import useAnimation from '../../hooks/useAnimation';
+import useAudioAnalyser from '../../hooks/useAudioAnalyser';
+import c from './Spectrum.scss';
 
-interface Props extends AnimateProps, AudioProps {
-  className?: string;
-}
+const Spectrum: FC<{}> = () => {
+  const analyser = useAudioAnalyser();
 
-class Spectrum extends React.Component<Props> {
-  private canvas = React.createRef<HTMLCanvasElement>();
+  const canvas = useRef<HTMLCanvasElement>();
 
-  private ctx: CanvasRenderingContext2D;
+  const [data, setData] = useState<Uint8Array | undefined>();
 
-  private data?: Uint8Array;
+  useEffect(() => {
+    if (analyser) {
+      setData(new Uint8Array(analyser.frequencyBinCount));
+    }
+  }, [analyser]);
 
-  public componentDidMount() {
-    this.ctx = this.canvas.current.getContext('2d');
-  }
-
-  public componentDidUpdate(prevProps: Props) {
-    const { analyser, onReady } = this.props;
-
-    if (analyser && !prevProps.analyser) {
-      this.data = new Uint8Array(analyser.frequencyBinCount);
-      onReady();
+  useAnimation(() => {
+    if (!analyser) {
+      return;
     }
 
-    if (this.props.step !== prevProps.step) {
-      this.ctx.save();
-      this.ctx.translate(1, 0);
-      this.ctx.drawImage(this.canvas.current, 0, 0);
-      this.ctx.restore();
-      analyser.getByteFrequencyData(this.data);
+    const ctx = canvas.current.getContext('2d');
+    ctx.save();
+    ctx.translate(1, 0);
+    ctx.drawImage(canvas.current, 0, 0);
+    ctx.restore();
+    analyser.getByteFrequencyData(data);
 
-      for (let i = 0; i < this.data.length; i++) {
-        const v = this.data[i];
-        this.ctx.fillStyle = `rgb(${v},${v},${v})`;
-        this.ctx.fillRect(0, i, 1, 1);
-      }
-    }
-  }
+    data.forEach((value, i) => {
+      ctx.fillStyle = `rgb(${value},${value},${value})`;
+      ctx.fillRect(0, i, 1, 1);
+    });
+  });
 
-  public render() {
-    return <canvas ref={this.canvas} className={this.props.className} />;
-  }
-}
+  return <canvas ref={canvas} className={c.canvas} />;
+};
 
-export default compose(
-  animate(60),
-  withAudioAnalyser(1024),
-)(Spectrum);
+export default Spectrum;

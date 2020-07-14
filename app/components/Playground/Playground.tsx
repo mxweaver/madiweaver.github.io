@@ -1,11 +1,5 @@
-import React, {
-  FunctionComponent,
-  useRef,
-  useState,
-  useEffect,
-} from 'react';
-import classnames from 'classnames';
-import animate, { WrappedProps } from '../../hoc/animate';
+import React, { FC, useRef, useState } from 'react';
+import useAnimation from '../../hooks/useAnimation';
 import c from './Playground.scss';
 
 let lastCircleId = 0;
@@ -28,12 +22,7 @@ interface CircleSet {
   [key: number]: Circle;
 }
 
-interface Props extends WrappedProps {
-  className?: string;
-}
-
-const Playground: FunctionComponent = (props: Props) => {
-  const { onReady, className, step } = props;
+const Playground: FC<{}> = () => {
   const container = useRef<SVGSVGElement>();
 
   const [circles, setCircles] = useState<CircleSet>({});
@@ -41,9 +30,7 @@ const Playground: FunctionComponent = (props: Props) => {
   const [selectedCircleId, setSelectedCircleId] = useState<number | undefined>();
   const [dragOffset, setDragOffset] = useState<Point | undefined>();
 
-  useEffect(onReady, []);
-
-  useEffect(() => {
+  useAnimation(() => {
     if (selectedCircleId !== undefined && isNewShape) {
       const selectedCircle = circles[selectedCircleId];
 
@@ -55,7 +42,7 @@ const Playground: FunctionComponent = (props: Props) => {
         },
       });
     }
-  }, [step]);
+  });
 
   const handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
     const bounds = container.current.getBoundingClientRect();
@@ -110,7 +97,7 @@ const Playground: FunctionComponent = (props: Props) => {
   return (
     <svg
       ref={container}
-      className={classnames(className, c.display)}
+      className={c.display}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
@@ -129,9 +116,4 @@ const Playground: FunctionComponent = (props: Props) => {
     </svg>
   );
 };
-
-Playground.defaultProps = {
-  className: undefined,
-};
-
-export default animate(60)(Playground);
+export default Playground;

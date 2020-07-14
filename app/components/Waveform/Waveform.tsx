@@ -1,47 +1,37 @@
-import React from 'react';
-import { compose } from 'redux';
-import classnames from 'classnames';
-import animate, { WrappedProps as AnimateProps } from '../../hoc/animate';
-import withAudioAnalyser, { WrappedProps as AudioProps } from '../../hoc/withAudioAnalyser';
+import React, {
+  FC, useState, useEffect, ReactNode,
+} from 'react';
+import useAnimation from '../../hooks/useAnimation';
 import c from './Waveform.scss';
+import useAudioAnalyser from '../../hooks/useAudioAnalyser';
 
-interface Props extends AnimateProps, AudioProps {
-  className?: string;
-}
+const Waveform: FC<{}> = () => {
+  const analyser = useAudioAnalyser();
+  const [data, setData] = useState<Uint8Array | undefined>();
 
-interface State {
-  data?: Uint8Array;
-}
-
-class Waveform extends React.Component<Props, State> {
-  public readonly state: State = {};
-
-  public componentDidUpdate(prevProps: Props) {
-    const { analyser, onReady } = this.props;
-
-    if (analyser && !prevProps.analyser) {
-      onReady();
+  useEffect(() => {
+    if (analyser) {
+      setData(new Uint8Array(analyser.frequencyBinCount));
     }
+  }, [analyser?.frequencyBinCount]);
 
-    if (this.props.step !== prevProps.step) {
-      const data = new Uint8Array(analyser.frequencyBinCount);
+  useAnimation(() => {
+    if (analyser) {
       analyser.getByteFrequencyData(data);
-      this.setState({ data });
     }
+  });
+
+  const columns: ReactNode[] = [];
+  if (data) {
+    // eslint-disable-next-line react/no-array-index-key
+    data.forEach((x, i) => columns.push(<div key={i} style={{ height: x }} />));
   }
 
-  public render() {
-    const { data } = this.state;
+  return (
+    <div className={c.waveform}>
+      {columns}
+    </div>
+  );
+};
 
-    return (
-      <div className={classnames(this.props.className, c.waveform)}>
-        {data && Array.from(data).map((x, i) => <div key={i} style={{ height: x }} />)}
-      </div>
-    );
-  }
-}
-
-export default compose(
-  animate(60),
-  withAudioAnalyser(1024),
-)(Waveform);
+export default Waveform;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import NavGroup from './NavGroup';
 import c from './header.scss';
 
@@ -12,7 +12,8 @@ const groups: NavGroups = {
     { title: 'playground', url: '/playground' },
     { title: 'waveform', url: '/waveform' },
     { title: 'spectrum', url: '/spectrum' },
-    { title: 'motion', url: '/motion' },
+    // { title: 'motion', url: '/motion' },
+    { title: 'animation', url: '/animation' },
   ],
   links: [
     { title: 'github', url: 'https://github.com/mayavera' },
@@ -22,14 +23,12 @@ const groups: NavGroups = {
   ],
 };
 
-function Nav() {
-  return (
-    <div className={c.nav}>
-      {Object.entries(groups).map(([name, links]) => (
-        <NavGroup key={name} name={name} links={links} />
-      ))}
-    </div>
-  );
-}
+const Nav: FC<{}> = () => (
+  <div className={c.nav}>
+    {Object.entries(groups).map(([name, links]) => (
+      <NavGroup key={name} name={name} links={links} />
+    ))}
+  </div>
+);
 
 export default Nav;

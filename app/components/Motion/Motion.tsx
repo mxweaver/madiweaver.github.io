@@ -1,32 +1,29 @@
-import React, { FunctionComponent } from 'react';
-import classnames from 'classnames';
+import React, { FC } from 'react';
 import c from './Motion.scss';
-import withDeviceOrientation, { WrappedProps } from '../../hoc/withDeviceOrientation';
+import useDeviceOrientation from '../../hooks/withDeviceOrientation';
 
-interface Props extends WrappedProps {
-  className?: string;
-}
+const Motion: FC<{}> = () => {
+  const orientation = useDeviceOrientation();
 
-const Motion: FunctionComponent<Props> = (props: Props) => {
-  const { deviceOrientation, className } = props;
-
-  if (!deviceOrientation) {
+  if (!orientation) {
     return <></>;
   }
 
+  if (!orientation.supported) {
+    return <>Not Supported!</>;
+  }
+
   return (
-    <svg className={classnames(className, c.motion)}>
-      <circle
-        cx={150 + deviceOrientation.gamma}
-        cy={150 + deviceOrientation.beta}
-        r={20}
-      />
+    <svg className={c.motion}>
+      {orientation.current && (
+        <circle
+          cx={150 + orientation.current.gamma}
+          cy={150 + orientation.current.beta}
+          r={20}
+        />
+      )}
     </svg>
   );
-}
+};
 
-Motion.defaultProps = {
-  className: undefined,
-}
-
-export default withDeviceOrientation(Motion);
+export default Motion;
