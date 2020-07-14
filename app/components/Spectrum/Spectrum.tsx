@@ -19,7 +19,7 @@ const Spectrum: FC<{}> = () => {
   }, [analyser]);
 
   useAnimation(() => {
-    if (!analyser) {
+    if (!analyser || !data) {
       return;
     }
 

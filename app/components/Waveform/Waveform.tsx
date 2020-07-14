@@ -16,7 +16,7 @@ const Waveform: FC<{}> = () => {
   }, [analyser?.frequencyBinCount]);
 
   useAnimation(() => {
-    if (analyser) {
+    if (analyser && data) {
       analyser.getByteFrequencyData(data);
     }
   });
