@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+// TODO: upgrade react-conway to version with typescript
+// @ts-ignore
 import Life from 'react-conway';
 import Header from '../Header';
 import Playground from '../Playground';
@@ -8,9 +10,6 @@ import Spectrum from '../Spectrum';
 import Motion from '../Motion';
 import Animation from '../Animation';
 import c from './App.scss';
-
-// TODO: upgrade react-conway to version with typescript
-// @ts-ignore
 
 const App: FC<{}> = () => (
   <BrowserRouter>
