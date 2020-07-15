@@ -1,4 +1,5 @@
 import React, { FC, useRef, useState } from 'react';
+import _ from 'lodash';
 import chroma from 'chroma-js';
 import useAnimation from '../../hooks/useAnimation';
 import c from './Circles.scss';
@@ -18,10 +19,41 @@ interface Circle extends Point {
   id: number;
   radius: number;
   color: string;
+  velocity: Point
 }
 
 interface CircleSet {
   [key: number]: Circle;
+}
+
+function createCircle(properties: Partial<Circle>): Circle {
+  return {
+    x: 0,
+    y: 0,
+    radius: 10,
+    id: getCircleId(),
+    color: chroma.random().brighten(2).css(),
+    velocity: {
+      x: 0,
+      y: 0,
+    },
+    ...properties,
+  };
+}
+
+function getDistance(a: Point, b: Point): number {
+  return Math.sqrt(((a.x - b.x) ** 2) + ((a.y - b.y) ** 2));
+}
+
+const G = 1;
+
+function getAttractiveForce(a: Circle, b: Circle): Point {
+  const force = (G * a.radius * b.radius) / (getDistance(a, b) ** 2);
+
+  return {
+    x: force * (b.x - a.x),
+    y: force * (b.y - a.y),
+  };
 }
 
 const Circles: FC<{}> = () => {
@@ -44,6 +76,41 @@ const Circles: FC<{}> = () => {
         },
       });
     }
+
+    setCircles((oldCircles) => _.mapValues(oldCircles, (newCircle, id) => {
+      if (selectedCircleId === Number(id)) {
+        return newCircle;
+      }
+
+      let forceX = 0;
+      let forceY = 0;
+
+      _.forOwn(oldCircles, (otherCircle, otherCircleId) => {
+        if (otherCircleId === id) {
+          return;
+        }
+
+        const attractiveForce = getAttractiveForce(newCircle, otherCircle);
+
+        forceX += attractiveForce.x;
+        forceY += attractiveForce.y;
+      });
+
+      const accelerationX = forceX / newCircle.radius;
+      const accelerationY = forceY / newCircle.radius;
+
+      const velocity = {
+        x: newCircle.velocity.x + accelerationX,
+        y: newCircle.velocity.y + accelerationY,
+      };
+
+      return {
+        ...newCircle,
+        x: newCircle.x + velocity.x,
+        y: newCircle.y + velocity.y,
+        velocity,
+      };
+    }));
   });
 
   const handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
@@ -53,13 +120,7 @@ const Circles: FC<{}> = () => {
     const target = event.target as SVGCircleElement;
 
     if (event.target === event.currentTarget) {
-      const circle = {
-        id: getCircleId(),
-        x,
-        y,
-        radius: 10,
-        color: chroma.random().brighten(2).css(),
-      };
+      const circle = createCircle({ x, y });
       setCircles({ ...circles, [circle.id]: circle });
       setSelectedCircleId(circle.id);
       setDragOffset({ x: 0, y: 0 });
