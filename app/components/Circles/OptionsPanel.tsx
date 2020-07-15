@@ -20,26 +20,24 @@ const OptionsPanel: FC<Props> = (props: Props) => {
   return (
     <div className={c.container}>
       <h2>Options</h2>
-      <label htmlFor="gravity">
-        Gravity
-        {' '}
-        <input
-          type="checkbox"
-          name="gravity"
-          checked={options.gravity}
-          onChange={handleCheckboxChange}
-        />
-      </label>
-      <label htmlFor="gravity">
-        Parallax
-        {' '}
-        <input
-          type="checkbox"
-          name="parallax"
-          checked={options.parallax}
-          onChange={handleCheckboxChange}
-        />
-      </label>
+      {[
+        ['gravity', 'Gravity'],
+        ['parallax', 'Parallax'],
+        ['accelerationLines', 'Show Acceleration Lines'],
+      ].map(([name, label]) => (
+        <p key={name}>
+          <label htmlFor={name}>
+            <input
+              type="checkbox"
+              name={name}
+              checked={(options as any)[name]}
+              onChange={handleCheckboxChange}
+            />
+            &nbsp;
+            {label}
+          </label>
+        </p>
+      ))}
     </div>
   );
 };

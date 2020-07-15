@@ -1,4 +1,9 @@
-import React, { FC, useRef, useState } from 'react';
+import React, {
+  FC,
+  Fragment,
+  useRef,
+  useState,
+} from 'react';
 import _ from 'lodash';
 import chroma from 'chroma-js';
 import useAnimation from '../../hooks/useAnimation';
@@ -21,7 +26,8 @@ interface Circle extends Point {
   id: number;
   radius: number;
   color: string;
-  velocity: Point
+  velocity: Point;
+  acceleration: Point;
 }
 
 interface CircleSet {
@@ -36,6 +42,10 @@ function createCircle(properties: Partial<Circle>): Circle {
     id: getCircleId(),
     color: chroma.random().brighten(2).css(),
     velocity: {
+      x: 0,
+      y: 0,
+    },
+    acceleration: {
       x: 0,
       y: 0,
     },
@@ -111,18 +121,21 @@ const Circles: FC<{}> = () => {
           forceY += attractiveForce.y;
         });
 
-        const accelerationX = forceX / newCircle.radius;
-        const accelerationY = forceY / newCircle.radius;
+        const acceleration = {
+          x: forceX / newCircle.radius,
+          y: forceY / newCircle.radius,
+        };
 
         const velocity = {
-          x: newCircle.velocity.x + accelerationX,
-          y: newCircle.velocity.y + accelerationY,
+          x: newCircle.velocity.x + acceleration.x,
+          y: newCircle.velocity.y + acceleration.y,
         };
 
         return {
           ...newCircle,
           x: newCircle.x + velocity.x,
           y: newCircle.y + velocity.y,
+          acceleration,
           velocity,
         };
       }));
@@ -191,19 +204,32 @@ const Circles: FC<{}> = () => {
         onMouseLeave={handleMouseLeave}
       >
         {Object.values(circles).map(({
-          id, radius, x, y, color,
+          id, radius, x, y, color, acceleration,
         }) => (
-          <circle
-            key={id}
-            data-circle-id={id}
-            r={radius}
-            cx={x + parallaxOffsetX}
-            cy={y + parallaxOffsetY}
-            style={{
-              cursor: selectedCircleId ? 'grabbing' : undefined,
-              fill: color,
-            }}
-          />
+          <Fragment key={id}>
+            <circle
+              data-circle-id={id}
+              r={radius}
+              cx={x + parallaxOffsetX}
+              cy={y + parallaxOffsetY}
+              style={{
+                cursor: selectedCircleId ? 'grabbing' : undefined,
+                fill: color,
+              }}
+            />
+            {options.accelerationLines && (
+              <line
+                x1={x + parallaxOffsetX}
+                y1={y + parallaxOffsetY}
+                x2={x + parallaxOffsetX + acceleration.x * 100}
+                y2={y + parallaxOffsetY + acceleration.y * 100}
+                style={{
+                  stroke: 'red',
+                  strokeWidth: 2,
+                }}
+              />
+            )}
+          </Fragment>
         ))}
       </svg>
       <OptionsPanel options={options} onChange={setOptions} />
