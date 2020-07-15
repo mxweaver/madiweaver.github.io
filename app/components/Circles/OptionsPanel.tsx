@@ -10,10 +10,10 @@ interface Props {
 const OptionsPanel: FC<Props> = (props: Props) => {
   const { options, onChange } = props;
 
-  function handleGravityChange(event: React.ChangeEvent<HTMLInputElement>): void {
+  function handleCheckboxChange(event: React.ChangeEvent<HTMLInputElement>): void {
     onChange({
       ...options,
-      gravity: event.target.checked,
+      [event.target.name]: event.target.checked,
     });
   }
 
@@ -27,7 +27,17 @@ const OptionsPanel: FC<Props> = (props: Props) => {
           type="checkbox"
           name="gravity"
           checked={options.gravity}
-          onChange={handleGravityChange}
+          onChange={handleCheckboxChange}
+        />
+      </label>
+      <label htmlFor="gravity">
+        Parallax
+        {' '}
+        <input
+          type="checkbox"
+          name="parallax"
+          checked={options.parallax}
+          onChange={handleCheckboxChange}
         />
       </label>
     </div>

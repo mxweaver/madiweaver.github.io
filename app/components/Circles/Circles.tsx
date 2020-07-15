@@ -58,6 +58,8 @@ function getAttractiveForce(a: Circle, b: Circle): Point {
   };
 }
 
+const PARALLAX_FACTOR = 0.1;
+
 const Circles: FC<{}> = () => {
   const container = useRef<SVGSVGElement>();
 
@@ -66,6 +68,15 @@ const Circles: FC<{}> = () => {
   const [selectedCircleId, setSelectedCircleId] = useState<number | undefined>();
   const [dragOffset, setDragOffset] = useState<Point | undefined>();
   const [options, setOptions] = useState<Options>(defaultOptions);
+  const [mouse, setMouse] = useState<Point | undefined>(undefined);
+
+  const parallaxOffsetX = options.parallax && mouse
+    ? ((container.current.getBoundingClientRect().width) / 2 - mouse.x) * PARALLAX_FACTOR
+    : 0;
+
+  const parallaxOffsetY = options.parallax && mouse
+    ? ((container.current.getBoundingClientRect().height) / 2 - mouse.y) * PARALLAX_FACTOR
+    : 0;
 
   useAnimation(() => {
     if (selectedCircleId !== undefined && isNewShape) {
@@ -146,6 +157,8 @@ const Circles: FC<{}> = () => {
     const x = event.clientX - bounds.left;
     const y = event.clientY - bounds.top;
 
+    setMouse({ x, y });
+
     if (selectedCircleId !== undefined) {
       const selectedCircle = circles[selectedCircleId];
       setCircles({
@@ -163,6 +176,10 @@ const Circles: FC<{}> = () => {
     setSelectedCircleId(undefined);
   };
 
+  const handleMouseLeave = () => {
+    setMouse(undefined);
+  };
+
   return (
     <div className={c.container}>
       <svg
@@ -171,6 +188,7 @@ const Circles: FC<{}> = () => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseLeave}
       >
         {Object.values(circles).map(({
           id, radius, x, y, color,
@@ -179,8 +197,8 @@ const Circles: FC<{}> = () => {
             key={id}
             data-circle-id={id}
             r={radius}
-            cx={x}
-            cy={y}
+            cx={x + parallaxOffsetX}
+            cy={y + parallaxOffsetY}
             style={{
               cursor: selectedCircleId ? 'grabbing' : undefined,
               fill: color,
