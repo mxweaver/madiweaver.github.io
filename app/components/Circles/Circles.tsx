@@ -3,6 +3,8 @@ import _ from 'lodash';
 import chroma from 'chroma-js';
 import useAnimation from '../../hooks/useAnimation';
 import c from './Circles.scss';
+import { Options, defaultOptions } from './Options';
+import OptionsPanel from './OptionsPanel';
 
 let lastCircleId = 0;
 function getCircleId(): number {
@@ -63,6 +65,7 @@ const Circles: FC<{}> = () => {
   const [isNewShape, setIsNewShape] = useState<boolean>(false);
   const [selectedCircleId, setSelectedCircleId] = useState<number | undefined>();
   const [dragOffset, setDragOffset] = useState<Point | undefined>();
+  const [options, setOptions] = useState<Options>(defaultOptions);
 
   useAnimation(() => {
     if (selectedCircleId !== undefined && isNewShape) {
@@ -77,40 +80,42 @@ const Circles: FC<{}> = () => {
       });
     }
 
-    setCircles((oldCircles) => _.mapValues(oldCircles, (newCircle, id) => {
-      if (selectedCircleId === Number(id)) {
-        return newCircle;
-      }
-
-      let forceX = 0;
-      let forceY = 0;
-
-      _.forOwn(oldCircles, (otherCircle, otherCircleId) => {
-        if (otherCircleId === id) {
-          return;
+    if (options.gravity) {
+      setCircles((oldCircles) => _.mapValues(oldCircles, (newCircle, id) => {
+        if (selectedCircleId === Number(id)) {
+          return newCircle;
         }
 
-        const attractiveForce = getAttractiveForce(newCircle, otherCircle);
+        let forceX = 0;
+        let forceY = 0;
 
-        forceX += attractiveForce.x;
-        forceY += attractiveForce.y;
-      });
+        _.forOwn(oldCircles, (otherCircle, otherCircleId) => {
+          if (otherCircleId === id) {
+            return;
+          }
 
-      const accelerationX = forceX / newCircle.radius;
-      const accelerationY = forceY / newCircle.radius;
+          const attractiveForce = getAttractiveForce(newCircle, otherCircle);
 
-      const velocity = {
-        x: newCircle.velocity.x + accelerationX,
-        y: newCircle.velocity.y + accelerationY,
-      };
+          forceX += attractiveForce.x;
+          forceY += attractiveForce.y;
+        });
 
-      return {
-        ...newCircle,
-        x: newCircle.x + velocity.x,
-        y: newCircle.y + velocity.y,
-        velocity,
-      };
-    }));
+        const accelerationX = forceX / newCircle.radius;
+        const accelerationY = forceY / newCircle.radius;
+
+        const velocity = {
+          x: newCircle.velocity.x + accelerationX,
+          y: newCircle.velocity.y + accelerationY,
+        };
+
+        return {
+          ...newCircle,
+          x: newCircle.x + velocity.x,
+          y: newCircle.y + velocity.y,
+          velocity,
+        };
+      }));
+    }
   });
 
   const handleMouseDown = (event: React.MouseEvent<SVGSVGElement>) => {
@@ -159,29 +164,32 @@ const Circles: FC<{}> = () => {
   };
 
   return (
-    <svg
-      ref={container}
-      className={c.display}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
-      {Object.values(circles).map(({
-        id, radius, x, y, color,
-      }) => (
-        <circle
-          key={id}
-          data-circle-id={id}
-          r={radius}
-          cx={x}
-          cy={y}
-          style={{
-            cursor: selectedCircleId ? 'grabbing' : undefined,
-            fill: color,
-          }}
-        />
-      ))}
-    </svg>
+    <div className={c.container}>
+      <svg
+        ref={container}
+        className={c.display}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+      >
+        {Object.values(circles).map(({
+          id, radius, x, y, color,
+        }) => (
+          <circle
+            key={id}
+            data-circle-id={id}
+            r={radius}
+            cx={x}
+            cy={y}
+            style={{
+              cursor: selectedCircleId ? 'grabbing' : undefined,
+              fill: color,
+            }}
+          />
+        ))}
+      </svg>
+      <OptionsPanel options={options} onChange={setOptions} />
+    </div>
   );
 };
 
