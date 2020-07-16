@@ -23,12 +23,16 @@
 
       .title {
         cursor: pointer;
+        padding: 0.5em 1em;
       }
 
       .links {
         position: absolute;
         right: 0;
         text-align: right;
+        background-color: black;
+        z-index: 1;
+        padding: 0.5em 1em;
 
         a {
           margin-top: 5px;
