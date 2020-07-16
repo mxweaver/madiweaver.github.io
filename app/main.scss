@@ -7,4 +7,17 @@
     position: fixed;
     overflow: hidden;
   }
+
+  button {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    border-radius: .2em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
+  }
 }

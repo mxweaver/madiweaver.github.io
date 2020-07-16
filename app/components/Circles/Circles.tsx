@@ -79,6 +79,7 @@ const Circles: FC<{}> = () => {
   const [dragOffset, setDragOffset] = useState<Point | undefined>();
   const [options, setOptions] = useState<Options>(defaultOptions);
   const [mouse, setMouse] = useState<Point | undefined>(undefined);
+  const [running, setRunning] = useState<boolean>(true);
 
   const parallaxOffsetX = options.parallax && mouse
     ? ((container.current.getBoundingClientRect().width) / 2 - mouse.x) * PARALLAX_FACTOR
@@ -89,6 +90,9 @@ const Circles: FC<{}> = () => {
     : 0;
 
   useAnimation(() => {
+    if (!running) {
+      return;
+    }
     if (selectedCircleId !== undefined && isNewShape) {
       const selectedCircle = circles[selectedCircleId];
 
@@ -232,7 +236,14 @@ const Circles: FC<{}> = () => {
           </Fragment>
         ))}
       </svg>
-      <OptionsPanel options={options} onChange={setOptions} />
+      <OptionsPanel
+        options={options}
+        running={running}
+        onChange={setOptions}
+        onClear={() => setCircles({})}
+        onStart={() => setRunning(true)}
+        onStop={() => setRunning(false)}
+      />
     </div>
   );
 };
