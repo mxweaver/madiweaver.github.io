@@ -6,6 +6,6 @@ export interface Options {
 
 export const defaultOptions: Options = {
   gravity: true,
-  parallax: true,
+  parallax: false,
   accelerationLines: false,
 };
