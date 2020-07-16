@@ -38,6 +38,9 @@ const OptionsPanel: FC<Props> = (props: Props) => {
           </label>
         </p>
       ))}
+      <p>
+        <button onClick={handleClear}>Clear</button>
+      </p>
     </div>
   );
 };
