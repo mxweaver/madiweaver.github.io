@@ -3,7 +3,7 @@
 
 .app-components-Circles-Circles__container--Yc7Vv{width:100%;height:100%;position:relative}.app-components-Circles-Circles__display--1EcsF{width:100%;height:100%;isolation:isolate;background-color:white}.app-components-Circles-Circles__display--1EcsF circle{cursor:-webkit-grab;cursor:grab;mix-blend-mode:difference}
 
-.app-components-Circles-OptionsPanel__container--2tROI{position:absolute;bottom:.5em;left:.5em;background-color:black;padding:0.5em 1em;border-radius:.5em}.app-components-Circles-OptionsPanel__container--2tROI h2{margin-top:.5em}
+.app-components-Circles-OptionsPanel__container--2tROI{position:absolute;bottom:.5em;left:.5em;background-color:black;padding:0.5em 1em;border-radius:.5em}.app-components-Circles-OptionsPanel__container--2tROI .app-components-Circles-OptionsPanel__title--3_TsB{cursor:pointer}
 
 .app-components-Waveform-Waveform__waveform--s_R_J{display:flex;align-items:flex-end;width:100%}.app-components-Waveform-Waveform__waveform--s_R_J>*{background-color:white;flex-grow:1}
 
