@@ -80,6 +80,7 @@ const Circles: FC<{}> = () => {
   const [options, setOptions] = useState<Options>(defaultOptions);
   const [mouse, setMouse] = useState<Point | undefined>(undefined);
   const [running, setRunning] = useState<boolean>(true);
+  const [dragging, setDragging] = useState<boolean>(false);
 
   const parallaxOffsetX = options.parallax && mouse
     ? ((container.current.getBoundingClientRect().width) / 2 - mouse.x) * PARALLAX_FACTOR
@@ -107,7 +108,7 @@ const Circles: FC<{}> = () => {
 
     if (options.gravity) {
       setCircles((oldCircles) => _.mapValues(oldCircles, (newCircle, id) => {
-        if (selectedCircleId === Number(id)) {
+        if (selectedCircleId === Number(id) && dragging) {
           return newCircle;
         }
 
@@ -152,13 +153,15 @@ const Circles: FC<{}> = () => {
     const y = event.clientY - bounds.top;
     const target = event.target as SVGCircleElement;
 
+    setDragging(true);
+
     if (event.target === event.currentTarget) {
       const circle = createCircle({ x, y });
       setCircles({ ...circles, [circle.id]: circle });
       setSelectedCircleId(circle.id);
       setDragOffset({ x: 0, y: 0 });
       setIsNewShape(true);
-    } else {
+    } else if (target.hasAttribute('data-circle-id')) {
       const circleId = Number(target.getAttribute('data-circle-id'));
       setIsNewShape(false);
       setSelectedCircleId(circleId);
@@ -176,7 +179,7 @@ const Circles: FC<{}> = () => {
 
     setMouse({ x, y });
 
-    if (selectedCircleId !== undefined) {
+    if (selectedCircleId !== undefined && dragging) {
       const selectedCircle = circles[selectedCircleId];
       setCircles({
         ...circles,
@@ -190,11 +193,13 @@ const Circles: FC<{}> = () => {
   };
 
   const handleMouseUp = () => {
-    setSelectedCircleId(undefined);
+    setIsNewShape(false);
+    setDragging(false);
   };
 
   const handleMouseLeave = () => {
     setMouse(undefined);
+    setIsNewShape(false);
   };
 
   return (
@@ -204,8 +209,8 @@ const Circles: FC<{}> = () => {
         className={c.display}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
       >
         {Object.values(circles).map(({
           id, radius, x, y, color, acceleration,
@@ -216,6 +221,8 @@ const Circles: FC<{}> = () => {
               r={radius}
               cx={x + parallaxOffsetX}
               cy={y + parallaxOffsetY}
+              stroke="cyan"
+              strokeWidth={selectedCircleId === id ? 3 : 0}
               style={{
                 cursor: selectedCircleId ? 'grabbing' : undefined,
                 fill: color,
