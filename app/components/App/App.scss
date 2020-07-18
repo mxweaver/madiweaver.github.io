@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Chakra+Petch');
 @import '../../colors';
 
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
 .app {
   font-family: 'Chakra Petch', sans-serif;
 	background-color: black;
@@ -8,12 +14,15 @@
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  height: 100vh;
   width: 100%;
+  margin: 1em;
+  border: .5em solid $secondary-color;
+  border-radius: .3em;
 }
 
 .content {
   flex-grow: 1;
   width: 100%;
   display: flex;
+  border-radius: .3em;
 }
