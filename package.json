@@ -62,7 +62,7 @@
     "chroma-js": "^2.1.0",
     "classnames": "^2.2.6",
     "debounce": "^1.2.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "normalize-scss": "^7.0.1",
     "react": "^16.13.1",
     "react-conway": "^0.1.0",
