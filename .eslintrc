@@ -27,7 +27,7 @@
       {
         "devDependencies": [
           "postcss.config.js",
-          "webpack.config.ts"
+          "webpack.config.js"
         ]
       }
     ]

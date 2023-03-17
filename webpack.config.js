@@ -1,14 +1,13 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import dotenv from 'dotenv';
-import { Configuration } from 'webpack';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
 const prod = process.env.NODE_ENV === 'production';
 
-export default {
+module.exports = {
   mode: prod ? 'production' : 'development',
   entry: {
     app: path.join(__dirname, 'app', 'main.tsx'),
@@ -23,7 +22,6 @@ export default {
   devServer: {
     hot: true,
     historyApiFallback: true,
-    disableHostCheck: true,
     host: '0.0.0.0',
     compress: true,
     https: true,
@@ -50,22 +48,21 @@ export default {
     rules: [
       {
         test: /\.html$/,
-        use: {
-          loader: 'html-loader',
-          options: {
-            minimize: true,
-          },
+        loader: 'html-loader',
+        options: {
+          minimize: true,
         },
       },
       {
         test: /\.s?css$/,
-        loader: [
+        use: [
           prod ? MiniCssExtractPlugin.loader : 'style-loader',
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+              },
               sourceMap: !prod,
             },
           },
@@ -80,10 +77,8 @@ export default {
       },
       {
         test: /\.[jt]sx?$/,
-        use: {
-          loader: 'ts-loader',
-        },
+        loader: 'ts-loader',
       },
     ],
   },
-} as Configuration;
+};
