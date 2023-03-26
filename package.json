@@ -20,9 +20,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/chroma-js": "^2.4.0",
-    "@types/lodash": "^4.14.191",
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.0.29",
+    "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
     "css-loader": "^6.7.3",
     "dotenv": "^16.0.3",
@@ -41,11 +40,8 @@
     "webpack-dev-server": "^4.12.0"
   },
   "dependencies": {
-    "chroma-js": "^2.4.2",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0",
-    "urijs": "^1.19.11"
+    "react-router-dom": "^6.9.0"
   }
 }
