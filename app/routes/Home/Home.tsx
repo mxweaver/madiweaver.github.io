@@ -10,6 +10,9 @@ export default function Home() {
             <a href="https://github.com/madiweaver" target="_blank">GitHub</a>
           </li>
           <li>
+            <a href="https://www.linkedin.com/in/mayavera" target="_blank">LinkedIn</a>
+          </li>
+          <li>
             <a href="mailto:madisonxweaver@gmail.com">Email</a>
           </li>
         </ul>
