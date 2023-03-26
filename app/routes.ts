@@ -1,17 +1,13 @@
 import { RouteProps } from 'react-router-dom';
-// TODO: upgrade react-conway to version with typescript
-// @ts-ignore
-import Life from 'react-conway';
 import Circles from './components/Circles';
 import Waveform from './components/Waveform';
 import Spectrum from './components/Spectrum';
-import Motion from './components/Motion';
 import Animation from './components/Animation';
 
 export interface Route {
   title: string,
   url: string,
-  component?: RouteProps['component'],
+  component?: RouteProps['Component'],
 }
 
 export interface Routes {
